@@ -1,0 +1,17 @@
+{
+  "name": "tutorial-site",
+  "version": "1.0.0",
+  "description": "Example code from Getting Started with Craft CMS tutorial.",
+  "main": "index.js",
+  "scripts": {
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "laravel-mix": "^5.0.4",
+    "postcss-nested": "^4.2.1",
+    "tailwindcss": "^1.2.0"
+  }
+}

@@ -1,0 +1,33 @@
+{% extends "_layout" %}
+
+{% set featureImage = {
+  mode: 'crop',
+  width: 900,
+  height: 600,
+  quality: 90
+} %}
+
+{% block content %}
+  <h1 class="text-4xl text-black font-display my-4">{{ entry.title }}</h1>
+
+  <time class="text-sm block pb-4" datetime="{{ entry.postDate | date('Y-m-d') }}">{{ entry.postDate | date('d M Y') }}</time>
+
+  {% if entry.featureImage | length %}
+    {% for image in entry.featureImage.all() %}
+      <img src="{{ image.getUrl(featureImage) }}" alt="{{ image.title }}"/>
+    {% endfor %}
+  {% endif %}
+
+  {% include "_includes/post-blocks" with { blocks: entry.postContent.all() } only %}
+
+
+  {% if entry.postCategories|length %}
+    <div class="border-t py-2 mb-6">
+      {% for category in entry.postCategories %}
+        <a href="{{ category.url }}" class="inline-block border rounded px-2 py-1 text-sm">
+          {{ category.title }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

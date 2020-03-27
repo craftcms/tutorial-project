@@ -1,0 +1,14 @@
+<nav class="container mx-auto py-4 px-4" role="navigation" aria-label="Main">
+  {% set firstSegment = craft.app.request.getSegment(1) %}
+  <ul class="flex">
+    <li class="mr-6">
+      <a class="text-blue-600 {{ firstSegment == '' ? 'border-b border-blue-400' }}" href="{{ siteUrl }}">Home</a>
+    </li>
+    <li class="mr-6">
+      <a class="text-blue-600 {{ firstSegment == 'blog' ? 'border-b border-blue-400' }}" href="{{ url('blog') }}">Blog</a>
+    </li>
+    <li class="mr-6">
+      <a class="text-blue-600 {{ firstSegment == 'about' ? 'border-b border-blue-400' }}" href="{{ url('about') }}">About</a>
+    </li>
+  </ul>
+</nav>

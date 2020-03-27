@@ -1,0 +1,15 @@
+<div class="my-8">
+  {% for block in blocks %}
+    <div class="my-4">
+      {% if block.type == 'text' %}
+        <div class="copy">
+          {{ block.text }}
+        </div>
+      {% elseif block.type == 'image' %}
+        {% for image in block.image.all() %}
+          <img src="{{ image.url }}" alt="{{ image.title }}" />
+        {% endfor %}
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

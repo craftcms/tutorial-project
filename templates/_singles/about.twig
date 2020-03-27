@@ -1,0 +1,19 @@
+{% extends "_layout" %}
+
+{% block content %}
+  <h1 class="text-4xl text-black font-display my-4">{{ entry.title }}</h1>
+
+  <div class="flex -mx-4">
+    <div class="w-1/2 px-4">
+      {% if entry.aboutImage | length %}
+        {% for image in entry.aboutImage.all() %}
+          <img src="{{ image.getUrl({ width: 800, height: 600 }) }}" alt="{{ image.title }}" class="my-8"/>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="w-1/2 px-4">
+      {% include "_includes/post-blocks" with { blocks: entry.postContent.all() } only %}
+
+    </div>
+  </div>
+{% endblock %}

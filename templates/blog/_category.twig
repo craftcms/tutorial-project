@@ -1,0 +1,13 @@
+{% extends "_layout" %}
+
+{% set posts = craft.entries.section('blog').relatedTo(category).all() %}
+
+{% block content %}
+
+  <h1 class="text-4xl text-black font-display my-4">
+    Blog Posts in “{{ category.title }}”
+  </h1>
+
+  {% include "_includes/listing" with { posts: posts } only %}
+
+{% endblock %}
