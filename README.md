@@ -1,6 +1,6 @@
 # Craft CMS Tutorial Site
 
-Source used in [the Getting Started with Craft CMS tutorial](https://docs.craftcms.com/tutorial/v3/).
+Source used in [the Getting Started with Craft CMS tutorial](https://craftcms.com/docs/getting-started-tutorial/).
 
 Meant for demonstration only; CSS should not be used in production.
 
