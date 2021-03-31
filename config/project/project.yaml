@@ -1,0 +1,17 @@
+dateModified: 1617203615
+email:
+  fromEmail: matt@craftcms.com
+  fromName: Tutorial
+  transportType: craft\mail\transportadapters\Sendmail
+system:
+  edition: solo
+  live: true
+  name: Tutorial
+  schemaVersion: 3.6.7
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  requireEmailVerification: true
