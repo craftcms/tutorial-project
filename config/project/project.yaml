@@ -1,4 +1,4 @@
-dateModified: 1618957409
+dateModified: 1618957913
 email:
   fromEmail: matt@craftcms.com
   fromName: Tutorial
@@ -9,7 +9,7 @@ plugins:
     enabled: true
     schemaVersion: 2.3.0
 system:
-  edition: solo
+  edition: pro
   live: true
   name: Tutorial
   schemaVersion: 3.6.8
