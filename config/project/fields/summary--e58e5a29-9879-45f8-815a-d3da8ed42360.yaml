@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: 2632ec4e-061b-4415-86a6-3bc53d216f14 # Blog Post Fields
+handle: summary
+instructions: 'Enter a brief, one or two sentence post summary.'
+name: Summary
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '1'
+  multiline: '1'
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

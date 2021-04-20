@@ -1,13 +1,18 @@
-dateModified: 1617203615
+dateModified: 1618957409
 email:
   fromEmail: matt@craftcms.com
   fromName: Tutorial
   transportType: craft\mail\transportadapters\Sendmail
+plugins:
+  redactor:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.3.0
 system:
   edition: solo
   live: true
   name: Tutorial
-  schemaVersion: 3.6.7
+  schemaVersion: 3.6.8
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false
