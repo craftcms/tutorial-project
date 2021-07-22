@@ -7,7 +7,7 @@
         </div>
       {% elseif block.type == 'image' %}
         {% for image in block.image.all() %}
-          <img src="{{ image.url }}" alt="{{ image.title }}" />
+          <img src="{{ image.url }}" alt="{{ image.title }}"/>
         {% endfor %}
       {% endif %}
     </div>
