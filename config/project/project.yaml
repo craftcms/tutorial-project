@@ -1,8 +1,35 @@
-dateModified: 1642625064
+dateModified: 1642625353
 email:
   fromEmail: matt@craftcms.com
   fromName: Tutorial
   transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    3b027fbd-9d13-42b0-a766-a11f4790a9c4: Blog # Blog
+    4bb27e74-35a0-49c1-8825-00a4ce0a9cba: 'Post Content' # Post Content
+    5daaece8-1f02-47fd-ba9e-edce1c7c9bcf: Blog # Blog
+    07a0b5b7-c53d-40d7-8267-ced2bbf3e1a9: General # General
+    8c1d5cb2-1c66-41a5-a83a-be99f27ad039: Tutorial # Tutorial
+    9bc9bd5a-c5d5-44e7-ab4f-098e2f62f81b: Image # Image
+    9e87f347-aa09-414c-b875-9a6e4f2b3f29: 'Post Categories' # Post Categories
+    11fd7863-c557-474f-9e86-36bf2667c05a: Text # Text
+    44e9671e-7aad-4d67-9985-773be8d2b989: Image # Image
+    48b998f3-5924-43dd-be2c-5aa55416fb3d: 'Site Information' # Site Information
+    58a5e1d8-10f8-4129-89f2-3b18e8ff11aa: Blog # Blog
+    78da8ff8-b777-46dc-949c-ee2a5bfcaac8: 'Global Fields' # Global Fields
+    2632ec4e-061b-4415-86a6-3bc53d216f14: 'Blog Post Fields' # Blog Post Fields
+    6827cb49-3409-4a15-b7f9-1b9c6d7b08d9: 'Public Schema' # Public Schema
+    a0ad8c69-605b-41c6-90ba-fc8f94215c35: Common # Common
+    ac8d7612-cd0f-476e-b974-6c7df7263a07: 'Blog Categories' # Blog Categories
+    bba1278d-5bfb-4918-a097-052ee4b5743c: About # About
+    d9b04bc7-6cae-4b6d-abad-1042ad0c1f78: Text # Text
+    d69c8149-7c97-44c0-a960-8236a6288f3e: 'Feature Image' # Feature Image
+    e8d117c7-5cf4-457b-a0a1-27bcd9ad108e: 'About Image' # About Image
+    e58e5a29-9879-45f8-815a-d3da8ed42360: Summary # Summary
+    f99e5d06-7dfd-4a5d-8556-bdc15aaca37c: About # About
+    f4506959-1fc0-46e2-af46-1ccd41e2be61: 'Site Description' # Site Description
+    fda5b90c-567b-4267-b9e3-1e1048a39b50: 'Singles Fields' # Singles Fields
+    fff1ee35-a169-4b00-b08f-1d6c253c95d5: Tutorial # Tutorial
 plugins:
   redactor:
     edition: standard
@@ -12,7 +39,7 @@ system:
   edition: pro
   live: true
   name: Tutorial
-  schemaVersion: 3.6.8
+  schemaVersion: 3.7.8
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false
