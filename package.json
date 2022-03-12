@@ -5,7 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "laravel-mix": "^6.0.42",
+    "laravel-mix": "^6.0.43",
     "postcss-nested": "^5.0.6",
     "tailwindcss": "^2.2.0"
   }
