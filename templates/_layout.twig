@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ craft.app.language }}">
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ siteName }}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    {% do craft.app.view.registerCssFile('@web/styles.css') %}
+  </head>
+  <body class="{{ now > now | date_modify('8am') ? 'after-hours' : 'open' }}">
+    <header>
+      <a class="home" href="{{ siteUrl }}">{{ siteName }}</a>
+
+      {% set navSegment = craft.app.request.getSegment(1) %}
+
+      <nav>
+        <ul>
+          <li>
+            <a href="{{ url('blog') }}" class="{{ navSegment == 'blog' ? 'active' : 'inactive' }}">Blog</a>
+          </li>
+          <li>
+            <a href="{{ url('about') }}" class="{{ navSegment == 'about' ? 'active' : 'inactive' }}">About</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {% block content %}
+        {# Nothing here, yet! #}
+      {% endblock %}
+    </main>
+    <footer>
+      <div class="description">
+        {{ siteInfo.description | md }}
+      </div>
+      <div class="copyright">&copy;{{ now | date('Y') }} {{ siteName }}</div>
+      <div class="colophon">Built with <a href="https://craftcms.com/" target="_blank">Craft CMS</a></div>
+    </footer>
+  </body>
+</html>

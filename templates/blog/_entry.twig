@@ -1,0 +1,60 @@
+{% extends '_layout' %}
+
+{# Load the attached image: #}
+{% set featureImage = entry.featureImage.one() %}
+{% set topics = entry.topics.all() %}
+{% set postContent = entry.postContent.all() %}
+
+{% block content %}
+  {# Access a property of a variable using “dot” notation: #}
+  <h1>{{ entry.title }}</h1>
+
+  <time datetime="{{ entry.postDate | atom }}">
+    {{ entry.postDate | date }}
+  </time>
+
+  {% if topics | length %}
+    <ul class="topics">
+      {% for topic in topics %}
+        <li>{{ topic.getLink() }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {# Output the image, if one was found: #}
+  {% if featureImage %}
+    <div class="feature-image">
+      {{ featureImage.getImg() }}
+    </div>
+  {% endif %}
+
+  <div class="post-content">
+    {% for contentBlock in postContent %}
+      {# Memoize the block type’s handle so we can use it later: #}
+      {% set blockType = contentBlock.type.handle %}
+
+      {# Switch what is displayed based on the `type`: #}
+      {% if blockType == 'text' %}
+        <div class="content-block text">
+          {{ contentBlock.text | md }}
+        </div>
+      {% elseif blockType == 'image' %}
+        {% set image = contentBlock.image.one() %}
+
+        <div class="content-block image">
+          {{ image.getImg() }}
+        </div>
+      {% else %}
+        <div class="content-block unsupported">
+          <p>Unsupported block type: <code>{{ blockType }}</code></p>
+        </div>
+      {% endif %}
+    {% else %}
+      {# `for` tags also support an `else` block for when there’s no content! #}
+
+      <div class="content-block empty">
+        <p>This post has no content!</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

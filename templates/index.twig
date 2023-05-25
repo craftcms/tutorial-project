@@ -1,0 +1,24 @@
+{# This is a comment in Twig! It won’t appear in the HTML output. #}
+
+{# Here’s some text, dynamically inserted into an HTML tag: #}
+<h1>{{ siteName }}</h1>
+
+{# What about a dynamic value? #}
+<p>Today is {{ now | date }}!</p>
+
+{# This is a variable, and it’s being set to a list (or “array”) of colors: #}
+{% set colors = ['red', 'green', 'blue'] %}
+
+{# How many colors are in the list? #}
+<p>The following list contains {{ colors | length }} color(s).</p>
+
+{# This is a loop that outputs those items, sorted alphabetically: #}
+<ul>
+  {% for color in colors | sort %}
+    {# Let’s stylize each item using some inline CSS: #}
+    <li style="color: {{ color }}">
+      {# The color is capitalized for display: #}
+      {{ color | title }}
+    </li>
+  {% endfor %}
+</ul>
