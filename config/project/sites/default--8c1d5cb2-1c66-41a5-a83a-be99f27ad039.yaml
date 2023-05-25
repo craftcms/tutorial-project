@@ -1,9 +1,0 @@
-baseUrl: $PRIMARY_SITE_URL
-enabled: true
-handle: default
-hasUrls: true
-language: en-US
-name: Tutorial
-primary: true
-siteGroup: fff1ee35-a169-4b00-b08f-1d6c253c95d5 # Tutorial
-sortOrder: 1
