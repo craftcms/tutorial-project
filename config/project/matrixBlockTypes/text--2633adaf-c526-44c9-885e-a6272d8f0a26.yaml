@@ -1,0 +1,46 @@
+field: ad503b1a-8fdf-4a3b-a93c-6bdb2c823285 # Post Content
+fieldLayouts:
+  3f024f9c-c06a-49c6-9224-4180d6b5aaf0:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 782938c4-8296-4285-825e-8a68c0a0899b # Text
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9e7445e8-3c36-4e88-aea6-b0e41ed192dd
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: d3468b10-a164-459b-b2c4-e25312ada2fc
+        userCondition: null
+fields:
+  782938c4-8296-4285-825e-8a68c0a0899b: # Text
+    columnSuffix: acuemsza
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: null
+    name: Text
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 10
+      multiline: true
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: text
+name: Text
+sortOrder: 1

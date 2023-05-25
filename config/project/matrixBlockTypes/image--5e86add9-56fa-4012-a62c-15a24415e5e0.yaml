@@ -1,0 +1,76 @@
+field: ad503b1a-8fdf-4a3b-a93c-6bdb2c823285 # Post Content
+fieldLayouts:
+  51f32229-5de2-4ec0-bcac-c4bc9c1df0f0:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 473ce54c-06f8-45af-a737-7aaeabffbfde # Image
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4e34bf66-1913-40f6-af3a-d1527923058b
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: c1acae64-7b7b-4d5d-bd90-a06e7a092563
+        userCondition: null
+fields:
+  473ce54c-06f8-45af-a737-7aaeabffbfde: # Image
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: image
+    instructions: null
+    name: Image
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: true
+      allowUploads: true
+      allowedKinds:
+        - image
+      branchLimit: null
+      defaultUploadLocationSource: 'volume:ec1487e2-3e09-4e17-85de-151fb21bf341' # Images
+      defaultUploadLocationSubpath: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: 1
+      minRelations: null
+      previewMode: full
+      restrictFiles: true
+      restrictLocation: true
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:ec1487e2-3e09-4e17-85de-151fb21bf341' # Images
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: null
+      showSiteMenu: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      sources:
+        - 'volume:ec1487e2-3e09-4e17-85de-151fb21bf341' # Images
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+handle: image
+name: Image
+sortOrder: 2

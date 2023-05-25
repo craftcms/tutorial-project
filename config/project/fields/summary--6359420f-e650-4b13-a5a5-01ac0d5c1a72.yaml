@@ -1,0 +1,19 @@
+columnSuffix: kxpmnqno
+contentColumnType: text
+fieldGroup: bd585f47-3b6d-4f10-b8ea-30c76f0863f3 # Blog
+handle: summary
+instructions: null
+name: Summary
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  columnType: null
+  initialRows: 1
+  multiline: true
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

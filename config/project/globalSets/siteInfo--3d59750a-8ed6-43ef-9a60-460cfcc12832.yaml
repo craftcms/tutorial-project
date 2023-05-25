@@ -1,0 +1,24 @@
+fieldLayouts:
+  1f531920-6cc5-45b4-9c04-aa537594c1b5:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: de9aba82-dcb8-47b5-b085-64ed1eb4dd6e # Description
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d2bb067d-0a8d-4460-b51d-d32e41eb86bd
+            userCondition: null
+            warning: null
+            width: 100
+        name: Metadata
+        uid: 0400ac59-ff4f-4dc4-acac-f9f53ab06fa5
+        userCondition: null
+handle: siteInfo
+name: 'Site Info'
+sortOrder: 1
