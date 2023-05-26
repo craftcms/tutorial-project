@@ -13,6 +13,6 @@ If you would like to start with a fully-functional project (or have an examplar 
 1. **Set a security key:** `ddev craft setup/security-key`;
 1. **Import database:**: `ddev craft db/restore seed.sql`;
 
-When you started DDEV, it output a URL (usually `https://tutorial.ddev.site`). Open that in your browser to 
+Run `ddev launch` or `ddev launch admin` to get started! The admin account included in `seed.sql` has the username `admin` and the password `password`.
 
 > **Warning:** If you created a new project while following the tutorial, you may encounter a project name conflict when starting DDEV. Change the `name` property in `.ddev/config.yml` to something like `tutorial-final`, then try `ddev start` again.
