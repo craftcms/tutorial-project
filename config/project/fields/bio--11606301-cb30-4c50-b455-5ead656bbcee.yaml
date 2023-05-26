@@ -1,0 +1,19 @@
+columnSuffix: ikcydbdr
+contentColumnType: text
+fieldGroup: d9caefb2-0f98-44ed-9348-d6e5ecd7640f # About
+handle: bio
+instructions: null
+name: Bio
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  columnType: null
+  initialRows: 8
+  multiline: true
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

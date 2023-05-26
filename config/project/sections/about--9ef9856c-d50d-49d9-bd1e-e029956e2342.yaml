@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: about
+name: About
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  6fe7500a-704e-4c0f-94ef-a868e4251578: # Tutorial
+    enabledByDefault: true
+    hasUrls: true
+    template: _singles/about
+    uriFormat: about
+type: single

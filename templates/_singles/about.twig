@@ -1,17 +1,23 @@
-{% extends "_layout" %}
+{% extends '_layout' %}
+
+{% set profilePhoto = entry.profilePhoto.one() %}
 
 {% block content %}
-  <h1 class="text-4xl text-black font-display my-4">{{ entry.title }}</h1>
-  <div class="flex -mx-4">
-    <div class="w-1/2 px-4">
-      {% if entry.aboutImage | length %}
-        {% for image in entry.aboutImage.all() %}
-          <img src="{{ image.getUrl({ width: 800, height: 600 }) }}" alt="{{ image.title }}" class="my-8"/>
-        {% endfor %}
-      {% endif %}
-    </div>
-    <div class="w-1/2 px-4">
-      {% include "_includes/post-blocks" with { blocks: entry.postContent.all() } only %}
+  <h1>{{ entry.title }}</h1>
+
+  <div class="about">
+    {% if profilePhoto %}
+      <div class="photo">
+        {{ profilePhoto.getImg({
+          mode: 'crop',
+          width: 360,
+          height: 360,
+        }) }}
+      </div>
+    {% endif %}
+
+    <div class="bio">
+      {{ entry.bio | md }}
     </div>
   </div>
 {% endblock %}

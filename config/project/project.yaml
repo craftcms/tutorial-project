@@ -1,45 +1,51 @@
-dateModified: 1642625353
+dateModified: 1685031454
 email:
-  fromEmail: matt@craftcms.com
+  fromEmail: hello@craftcms.com
   fromName: Tutorial
   transportType: craft\mail\transportadapters\Sendmail
+fs:
+  hardDisk:
+    hasUrls: true
+    name: 'Hard Disk'
+    settings:
+      path: '@webroot/uploads/images'
+    type: craft\fs\Local
+    url: '@web/uploads/images'
 meta:
   __names__:
-    3b027fbd-9d13-42b0-a766-a11f4790a9c4: Blog # Blog
-    4bb27e74-35a0-49c1-8825-00a4ce0a9cba: 'Post Content' # Post Content
-    5daaece8-1f02-47fd-ba9e-edce1c7c9bcf: Blog # Blog
-    07a0b5b7-c53d-40d7-8267-ced2bbf3e1a9: General # General
-    8c1d5cb2-1c66-41a5-a83a-be99f27ad039: Tutorial # Tutorial
-    9bc9bd5a-c5d5-44e7-ab4f-098e2f62f81b: Image # Image
-    9e87f347-aa09-414c-b875-9a6e4f2b3f29: 'Post Categories' # Post Categories
-    11fd7863-c557-474f-9e86-36bf2667c05a: Text # Text
-    44e9671e-7aad-4d67-9985-773be8d2b989: Image # Image
-    48b998f3-5924-43dd-be2c-5aa55416fb3d: 'Site Information' # Site Information
-    58a5e1d8-10f8-4129-89f2-3b18e8ff11aa: Blog # Blog
-    78da8ff8-b777-46dc-949c-ee2a5bfcaac8: 'Global Fields' # Global Fields
-    2632ec4e-061b-4415-86a6-3bc53d216f14: 'Blog Post Fields' # Blog Post Fields
-    6827cb49-3409-4a15-b7f9-1b9c6d7b08d9: 'Public Schema' # Public Schema
-    a0ad8c69-605b-41c6-90ba-fc8f94215c35: Common # Common
-    ac8d7612-cd0f-476e-b974-6c7df7263a07: 'Blog Categories' # Blog Categories
-    bba1278d-5bfb-4918-a097-052ee4b5743c: About # About
-    d9b04bc7-6cae-4b6d-abad-1042ad0c1f78: Text # Text
-    d69c8149-7c97-44c0-a960-8236a6288f3e: 'Feature Image' # Feature Image
-    e8d117c7-5cf4-457b-a0a1-27bcd9ad108e: 'About Image' # About Image
-    e58e5a29-9879-45f8-815a-d3da8ed42360: Summary # Summary
-    f99e5d06-7dfd-4a5d-8556-bdc15aaca37c: About # About
-    f4506959-1fc0-46e2-af46-1ccd41e2be61: 'Site Description' # Site Description
-    fda5b90c-567b-4267-b9e3-1e1048a39b50: 'Singles Fields' # Singles Fields
-    fff1ee35-a169-4b00-b08f-1d6c253c95d5: Tutorial # Tutorial
-plugins:
-  redactor:
-    edition: standard
-    enabled: true
-    schemaVersion: 2.3.0
+    2e7d47d3-0ff1-4e7d-bd97-776d26709501: Global # Global
+    3d59750a-8ed6-43ef-9a60-460cfcc12832: 'Site Info' # Site Info
+    5e86add9-56fa-4012-a62c-15a24415e5e0: Image # Image
+    6fe7500a-704e-4c0f-94ef-a868e4251578: Tutorial # Tutorial
+    9a47f63c-c5d8-43bd-be5e-5c4a045dce41: Thumbnail # Thumbnail
+    9ef9856c-d50d-49d9-bd1e-e029956e2342: About # About
+    22c82593-5c3e-471a-a75c-af46ba3b9dfc: 'Profile Photo' # Profile Photo
+    50bd58d3-3f59-4d28-b958-5f7fbfa30fd5: Common # Common
+    228d4acb-c42e-4d3d-ad21-8dc3d1ea0027: About # About
+    342e9393-8067-4c94-9386-e1c541273ddb: Topics # Topics
+    473ce54c-06f8-45af-a737-7aaeabffbfde: Image # Image
+    711e542a-7869-410a-ab6c-83fc8c36a5b6: Quote # Quote
+    2633adaf-c526-44c9-885e-a6272d8f0a26: Text # Text
+    5243d9e9-fe81-41ef-a875-69941c782a8e: Topics # Topics
+    9420faf5-3e37-4758-8c52-354bedac7414: Blog # Blog
+    423216e9-be60-4b68-a48f-32690ba804dc: Quote # Quote
+    782938c4-8296-4285-825e-8a68c0a0899b: Text # Text
+    6359420f-e650-4b13-a5a5-01ac0d5c1a72: Summary # Summary
+    11606301-cb30-4c50-b455-5ead656bbcee: Bio # Bio
+    a3430119-c9d8-45be-8833-73170b536844: 'Public Schema' # Public Schema
+    ad503b1a-8fdf-4a3b-a93c-6bdb2c823285: 'Post Content' # Post Content
+    bd585f47-3b6d-4f10-b8ea-30c76f0863f3: Blog # Blog
+    c3785700-c808-470f-bb7f-2ae46d6731e8: Post # Post
+    d9caefb2-0f98-44ed-9348-d6e5ecd7640f: About # About
+    d8695b13-9305-4f11-b758-937e573eb1e2: 'Feature Image' # Feature Image
+    de9aba82-dcb8-47b5-b085-64ed1eb4dd6e: Description # Description
+    ec1487e2-3e09-4e17-85de-151fb21bf341: Images # Images
+    f702ad74-9616-44d5-a062-62d8e7ef2b2d: Tutorial # Tutorial
 system:
-  edition: pro
+  edition: solo
   live: true
   name: Tutorial
-  schemaVersion: 3.7.8
+  schemaVersion: 4.4.0.4
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false

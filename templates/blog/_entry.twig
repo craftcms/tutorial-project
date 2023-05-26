@@ -1,33 +1,60 @@
-{% extends "_layout" %}
+{% extends '_layout' %}
 
-{% set featureImage = {
-  mode: 'crop',
-  width: 900,
-  height: 600,
-  quality: 90
-} %}
+{# Load the attached image: #}
+{% set featureImage = entry.featureImage.one() %}
+{% set topics = entry.topics.all() %}
+{% set postContent = entry.postContent.all() %}
 
 {% block content %}
-  <h1 class="text-4xl text-black font-display my-4">{{ entry.title }}</h1>
+  {# Access a property of a variable using “dot” notation: #}
+  <h1>{{ entry.title }}</h1>
 
-  <time class="text-sm block pb-4" datetime="{{ entry.postDate | date('Y-m-d') }}">{{ entry.postDate | date('d M Y') }}</time>
+  <time datetime="{{ entry.postDate | atom }}">
+    {{ entry.postDate | date }}
+  </time>
 
-  {% if entry.featureImage | length %}
-    {% for image in entry.featureImage.all() %}
-      <img src="{{ image.getUrl(featureImage) }}" alt="{{ image.title }}"/>
-    {% endfor %}
+  {% if topics | length %}
+    <ul class="topics">
+      {% for topic in topics %}
+        <li>{{ topic.getLink() }}</li>
+      {% endfor %}
+    </ul>
   {% endif %}
 
-  {% include "_includes/post-blocks" with { blocks: entry.postContent.all() } only %}
-
-
-  {% if entry.postCategories|length %}
-    <div class="border-t py-2 mb-6">
-      {% for category in entry.postCategories %}
-        <a href="{{ category.url }}" class="inline-block border rounded px-2 py-1 text-sm">
-          {{ category.title }}
-        </a>
-      {% endfor %}
+  {# Output the image, if one was found: #}
+  {% if featureImage %}
+    <div class="feature-image">
+      {{ featureImage.getImg() }}
     </div>
   {% endif %}
+
+  <div class="post-content">
+    {% for contentBlock in postContent %}
+      {# Memoize the block type’s handle so we can use it later: #}
+      {% set blockType = contentBlock.type.handle %}
+
+      {# Switch what is displayed based on the `type`: #}
+      {% if blockType == 'text' %}
+        <div class="content-block text">
+          {{ contentBlock.text | md }}
+        </div>
+      {% elseif blockType == 'image' %}
+        {% set image = contentBlock.image.one() %}
+
+        <div class="content-block image">
+          {{ image.getImg() }}
+        </div>
+      {% else %}
+        <div class="content-block unsupported">
+          <p>Unsupported block type: <code>{{ blockType }}</code></p>
+        </div>
+      {% endif %}
+    {% else %}
+      {# `for` tags also support an `else` block for when there’s no content! #}
+
+      <div class="content-block empty">
+        <p>This post has no content!</p>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

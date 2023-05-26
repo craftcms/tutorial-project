@@ -1,0 +1,9 @@
+baseUrl: '@web'
+enabled: true
+handle: default
+hasUrls: true
+language: en-US
+name: Tutorial
+primary: true
+siteGroup: f702ad74-9616-44d5-a062-62d8e7ef2b2d # Tutorial
+sortOrder: 1
