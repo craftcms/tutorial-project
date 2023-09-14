@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.5.18-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.5.19-MariaDB, for debian-linux-gnu (aarch64)
 --
 -- Host: db    Database: db
 -- ------------------------------------------------------
--- Server version	10.4.28-MariaDB-1:10.4.28+maria~ubu2004-log
+-- Server version	8.0.33-0ubuntu0.20.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,8 +23,8 @@ DROP TABLE IF EXISTS `addresses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `addresses` (
-  `id` int(11) NOT NULL,
-  `ownerId` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `ownerId` int DEFAULT NULL,
   `countryCode` varchar(255) NOT NULL,
   `administrativeArea` varchar(255) DEFAULT NULL,
   `locality` varchar(255) DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `addresses` (
   KEY `fk_pxedcfodnxhcakifamjsxlxyqrrioijzetjr` (`ownerId`),
   CONSTRAINT `fk_pxedcfodnxhcakifamjsxlxyqrrioijzetjr` FOREIGN KEY (`ownerId`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_tvzrvrxgrqitxjuhpsegukaaqifkkbxeykfs` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,12 +57,12 @@ DROP TABLE IF EXISTS `announcements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `announcements` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `pluginId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
+  `pluginId` int DEFAULT NULL,
   `heading` varchar(255) NOT NULL,
   `body` text NOT NULL,
-  `unread` tinyint(1) NOT NULL DEFAULT 1,
+  `unread` tinyint(1) NOT NULL DEFAULT '1',
   `dateRead` datetime DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -71,7 +71,7 @@ CREATE TABLE `announcements` (
   KEY `fk_bfopnatqbqveufooxehsptbieqitexvoorss` (`pluginId`),
   CONSTRAINT `fk_bfopnatqbqveufooxehsptbieqitexvoorss` FOREIGN KEY (`pluginId`) REFERENCES `plugins` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_rnngklugnmbtfoziclaeptuzstkntahkzgik` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,17 +82,17 @@ DROP TABLE IF EXISTS `assetindexdata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assetindexdata` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sessionId` int(11) NOT NULL,
-  `volumeId` int(11) NOT NULL,
-  `uri` text DEFAULT NULL,
-  `size` bigint(20) unsigned DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sessionId` int NOT NULL,
+  `volumeId` int NOT NULL,
+  `uri` text,
+  `size` bigint unsigned DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
-  `isDir` tinyint(1) DEFAULT 0,
-  `recordId` int(11) DEFAULT NULL,
-  `isSkipped` tinyint(1) DEFAULT 0,
-  `inProgress` tinyint(1) DEFAULT 0,
-  `completed` tinyint(1) DEFAULT 0,
+  `isDir` tinyint(1) DEFAULT '0',
+  `recordId` int DEFAULT NULL,
+  `isSkipped` tinyint(1) DEFAULT '0',
+  `inProgress` tinyint(1) DEFAULT '0',
+  `completed` tinyint(1) DEFAULT '0',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -101,7 +101,7 @@ CREATE TABLE `assetindexdata` (
   KEY `idx_ankfubtqzlkysxijuvwcufjmhjskaxbdnsai` (`volumeId`),
   CONSTRAINT `fk_amcefuacvrtxvvyvkwfnzkcthhiwjmlqncse` FOREIGN KEY (`sessionId`) REFERENCES `assetindexingsessions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_uouipqkazrtfwfwrnlqewvvmbmyjrqcvbjip` FOREIGN KEY (`volumeId`) REFERENCES `volumes` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,20 +112,20 @@ DROP TABLE IF EXISTS `assetindexingsessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assetindexingsessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `indexedVolumes` text DEFAULT NULL,
-  `totalEntries` int(11) DEFAULT NULL,
-  `processedEntries` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `indexedVolumes` text,
+  `totalEntries` int DEFAULT NULL,
+  `processedEntries` int NOT NULL DEFAULT '0',
   `cacheRemoteImages` tinyint(1) DEFAULT NULL,
-  `listEmptyFolders` tinyint(1) DEFAULT 0,
-  `isCli` tinyint(1) DEFAULT 0,
-  `actionRequired` tinyint(1) DEFAULT 0,
-  `processIfRootEmpty` tinyint(1) DEFAULT 0,
+  `listEmptyFolders` tinyint(1) DEFAULT '0',
+  `isCli` tinyint(1) DEFAULT '0',
+  `actionRequired` tinyint(1) DEFAULT '0',
+  `processIfRootEmpty` tinyint(1) DEFAULT '0',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,16 +136,16 @@ DROP TABLE IF EXISTS `assets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assets` (
-  `id` int(11) NOT NULL,
-  `volumeId` int(11) DEFAULT NULL,
-  `folderId` int(11) NOT NULL,
-  `uploaderId` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `volumeId` int DEFAULT NULL,
+  `folderId` int NOT NULL,
+  `uploaderId` int DEFAULT NULL,
   `filename` varchar(255) NOT NULL,
   `kind` varchar(50) NOT NULL DEFAULT 'unknown',
-  `alt` text DEFAULT NULL,
-  `width` int(11) unsigned DEFAULT NULL,
-  `height` int(11) unsigned DEFAULT NULL,
-  `size` bigint(20) unsigned DEFAULT NULL,
+  `alt` text,
+  `width` int unsigned DEFAULT NULL,
+  `height` int unsigned DEFAULT NULL,
+  `size` bigint unsigned DEFAULT NULL,
   `focalPoint` varchar(13) DEFAULT NULL,
   `deletedWithVolume` tinyint(1) DEFAULT NULL,
   `keptFile` tinyint(1) DEFAULT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE `assets` (
   CONSTRAINT `fk_mcqcwrsgxfhrxebhdgtbynnsyxirfwsjkdzm` FOREIGN KEY (`folderId`) REFERENCES `volumefolders` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_tfxaxdsgdtlbknaojfcwwnswhbtuudfoacac` FOREIGN KEY (`uploaderId`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_uzwmjgqkseomqjelvtodomqaaitbsolwqxvq` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,9 +172,9 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL,
-  `parentId` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `groupId` int NOT NULL,
+  `parentId` int DEFAULT NULL,
   `deletedWithGroup` tinyint(1) DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE `categories` (
   CONSTRAINT `fk_hispinkmzguohpmhvuaxreksbwjzwbkapitg` FOREIGN KEY (`parentId`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_rddquctjkwduscswjczpmzdfognnyhfmdayu` FOREIGN KEY (`groupId`) REFERENCES `categorygroups` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_sapormpgldlatfxrntwfwyfimhkjcgdcqckq` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,9 +195,9 @@ DROP TABLE IF EXISTS `categorygroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categorygroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `structureId` int(11) NOT NULL,
-  `fieldLayoutId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `structureId` int NOT NULL,
+  `fieldLayoutId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
   `defaultPlacement` enum('beginning','end') NOT NULL DEFAULT 'end',
@@ -213,7 +213,7 @@ CREATE TABLE `categorygroups` (
   KEY `idx_wpuhqpmnphrdllxfpghfrfmzymmqecyifizh` (`dateDeleted`),
   CONSTRAINT `fk_dvczyrmthftvdevzrhpfaaobtwmfvissugqj` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_rvfduazrgupjrsgeldfslljxssatrwfmcwmd` FOREIGN KEY (`structureId`) REFERENCES `structures` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,11 +224,11 @@ DROP TABLE IF EXISTS `categorygroups_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categorygroups_sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
-  `hasUrls` tinyint(1) NOT NULL DEFAULT 1,
-  `uriFormat` text DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `groupId` int NOT NULL,
+  `siteId` int NOT NULL,
+  `hasUrls` tinyint(1) NOT NULL DEFAULT '1',
+  `uriFormat` text,
   `template` varchar(500) DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -238,7 +238,7 @@ CREATE TABLE `categorygroups_sites` (
   KEY `idx_zcharmrlearnysxytivbpmpwfskrcqmgdqck` (`siteId`),
   CONSTRAINT `fk_bvxiuhierzhxihxljipmxiqsjmnqdohevorf` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_uuncgqmepumfsiiekqeboobpgwigvxqgawyw` FOREIGN KEY (`groupId`) REFERENCES `categorygroups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,12 +249,12 @@ DROP TABLE IF EXISTS `changedattributes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `changedattributes` (
-  `elementId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
+  `elementId` int NOT NULL,
+  `siteId` int NOT NULL,
   `attribute` varchar(255) NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `propagated` tinyint(1) NOT NULL,
-  `userId` int(11) DEFAULT NULL,
+  `userId` int DEFAULT NULL,
   PRIMARY KEY (`elementId`,`siteId`,`attribute`),
   KEY `idx_cplyuqzkobssuqbazycbrlqenljszxxsffkw` (`elementId`,`siteId`,`dateUpdated`),
   KEY `fk_bullmmgymhdplncleyrbxpuntpufkuuuzlej` (`siteId`),
@@ -262,7 +262,7 @@ CREATE TABLE `changedattributes` (
   CONSTRAINT `fk_bullmmgymhdplncleyrbxpuntpufkuuuzlej` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_hquzoywmxzixyfbzvpvgrloerdbmozjqgxjz` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_lxgmdrzkcbtuhguqveoepsrizvweoiodqoqd` FOREIGN KEY (`elementId`) REFERENCES `elements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,12 +273,12 @@ DROP TABLE IF EXISTS `changedfields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `changedfields` (
-  `elementId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
-  `fieldId` int(11) NOT NULL,
+  `elementId` int NOT NULL,
+  `siteId` int NOT NULL,
+  `fieldId` int NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `propagated` tinyint(1) NOT NULL,
-  `userId` int(11) DEFAULT NULL,
+  `userId` int DEFAULT NULL,
   PRIMARY KEY (`elementId`,`siteId`,`fieldId`),
   KEY `idx_qxswahfusfzjlaypmccyznkhgyxwfydyppbp` (`elementId`,`siteId`,`dateUpdated`),
   KEY `fk_nosfxmqgglpxcuktlhhcsmovphuufttwwvrg` (`siteId`),
@@ -288,7 +288,7 @@ CREATE TABLE `changedfields` (
   CONSTRAINT `fk_qjgceopvauzgjzxbejlvqpdddmxswxbhfhlw` FOREIGN KEY (`elementId`) REFERENCES `elements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_urzdltxzvfzygdxalkslcaqnupeevfipybbz` FOREIGN KEY (`fieldId`) REFERENCES `fields` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_zkudfsfgtpaxljcfoljzxkglnoeuqeilywxl` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,23 +299,23 @@ DROP TABLE IF EXISTS `content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `elementId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `elementId` int NOT NULL,
+  `siteId` int NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
-  `field_summary_kxpmnqno` text DEFAULT NULL,
-  `field_description_cyaftqpy` text DEFAULT NULL,
-  `field_bio_ikcydbdr` text DEFAULT NULL,
+  `field_summary_kxpmnqno` text,
+  `field_description_cyaftqpy` text,
+  `field_bio_ikcydbdr` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_cqnqglybqqtzlgrsrwjppmnypitawbmeqtia` (`elementId`,`siteId`),
   KEY `idx_gzssnrwztklevzujsqvsuzztwioilrnarlae` (`siteId`),
   KEY `idx_nytqjfjboxuffphtiztvbrmyppgkuyeuilhc` (`title`),
   CONSTRAINT `fk_cmuzwlrqfbtnkxteztcbgzypmmosulcfrvdd` FOREIGN KEY (`elementId`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_vouhlbbcawcbimpcyhfdwcalzlmosgkntwcl` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -326,8 +326,8 @@ DROP TABLE IF EXISTS `craftidtokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `craftidtokens` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
   `accessToken` text NOT NULL,
   `expiryDate` datetime DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
@@ -336,7 +336,7 @@ CREATE TABLE `craftidtokens` (
   PRIMARY KEY (`id`),
   KEY `fk_ddqipnxhlyturknzmabvdmakpfsyvdqgqetf` (`userId`),
   CONSTRAINT `fk_ddqipnxhlyturknzmabvdmakpfsyvdqgqetf` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -347,20 +347,20 @@ DROP TABLE IF EXISTS `deprecationerrors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `deprecationerrors` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `key` varchar(255) NOT NULL,
   `fingerprint` varchar(255) NOT NULL,
   `lastOccurrence` datetime NOT NULL,
   `file` varchar(255) NOT NULL,
-  `line` smallint(6) unsigned DEFAULT NULL,
-  `message` text DEFAULT NULL,
-  `traces` text DEFAULT NULL,
+  `line` smallint unsigned DEFAULT NULL,
+  `message` text,
+  `traces` text,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_uzxxdyqmjqqghnmwtpjycytvwdgvbmlbxxtl` (`key`,`fingerprint`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -371,22 +371,48 @@ DROP TABLE IF EXISTS `drafts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `drafts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `canonicalId` int(11) DEFAULT NULL,
-  `creatorId` int(11) DEFAULT NULL,
-  `provisional` tinyint(1) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `canonicalId` int DEFAULT NULL,
+  `creatorId` int DEFAULT NULL,
+  `provisional` tinyint(1) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
-  `notes` text DEFAULT NULL,
-  `trackChanges` tinyint(1) NOT NULL DEFAULT 0,
+  `notes` text,
+  `trackChanges` tinyint(1) NOT NULL DEFAULT '0',
   `dateLastMerged` datetime DEFAULT NULL,
-  `saved` tinyint(1) NOT NULL DEFAULT 1,
+  `saved` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idx_wobsgzmbgdtlmruhtnomkrzzoskzoraphkhc` (`creatorId`,`provisional`),
   KEY `idx_stnwknphninhjwqghktjudlnomijnfyclalo` (`saved`),
   KEY `fk_fzzphkliwtkyntorpdnuupjcmdjypcwbkprt` (`canonicalId`),
   CONSTRAINT `fk_bbxwyrwbumaytwettewniuncklmceetnhxog` FOREIGN KEY (`creatorId`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_fzzphkliwtkyntorpdnuupjcmdjypcwbkprt` FOREIGN KEY (`canonicalId`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `elementactivity`
+--
+
+DROP TABLE IF EXISTS `elementactivity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `elementactivity` (
+  `elementId` int NOT NULL,
+  `userId` int NOT NULL,
+  `siteId` int NOT NULL,
+  `draftId` int DEFAULT NULL,
+  `type` varchar(255) NOT NULL,
+  `timestamp` datetime DEFAULT NULL,
+  PRIMARY KEY (`elementId`,`userId`,`type`),
+  KEY `idx_eppuyvpycggmxfrlirhwrqstwfziqdprcpyw` (`elementId`,`timestamp`,`userId`),
+  KEY `fk_cliqanhzthrkzdykwsnlpzydwzolpuuyzhmq` (`userId`),
+  KEY `fk_cyyviolhzvfinpbddasfjbulsgugfycsnnbd` (`siteId`),
+  KEY `fk_tsoctyazunjzsypanyroamckmkswsfeahxkf` (`draftId`),
+  CONSTRAINT `fk_cliqanhzthrkzdykwsnlpzydwzolpuuyzhmq` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_cyyviolhzvfinpbddasfjbulsgugfycsnnbd` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_enzbijrasxnkrlpsibrxpstikuhkhvnjiwle` FOREIGN KEY (`elementId`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_tsoctyazunjzsypanyroamckmkswsfeahxkf` FOREIGN KEY (`draftId`) REFERENCES `drafts` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,14 +423,14 @@ DROP TABLE IF EXISTS `elements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `elements` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `canonicalId` int(11) DEFAULT NULL,
-  `draftId` int(11) DEFAULT NULL,
-  `revisionId` int(11) DEFAULT NULL,
-  `fieldLayoutId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `canonicalId` int DEFAULT NULL,
+  `draftId` int DEFAULT NULL,
+  `revisionId` int DEFAULT NULL,
+  `fieldLayoutId` int DEFAULT NULL,
   `type` varchar(255) NOT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT 1,
-  `archived` tinyint(1) NOT NULL DEFAULT 0,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `archived` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateLastMerged` datetime DEFAULT NULL,
@@ -425,7 +451,7 @@ CREATE TABLE `elements` (
   CONSTRAINT `fk_imwqtsmtuxddixdqhflkkrdrxbtaremvcpqq` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_tleryzhyxmksjiwnxkyyjzxvkehdxhgbxchj` FOREIGN KEY (`draftId`) REFERENCES `drafts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_unsdrejedchspzznwkrixxgetplehuynjkvw` FOREIGN KEY (`canonicalId`) REFERENCES `elements` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,12 +462,12 @@ DROP TABLE IF EXISTS `elements_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `elements_sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `elementId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `elementId` int NOT NULL,
+  `siteId` int NOT NULL,
   `slug` varchar(255) DEFAULT NULL,
   `uri` varchar(255) DEFAULT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -453,7 +479,7 @@ CREATE TABLE `elements_sites` (
   KEY `idx_vzvrzibrjvadcabhpgkhyzqadswfywdhqjmh` (`uri`,`siteId`),
   CONSTRAINT `fk_gcdqmxnkbrzcwjlhxurtbkpdsigsqonwxtdx` FOREIGN KEY (`elementId`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_pnzjrnarhrmqwdawqbnonbyavampxobihucl` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,11 +490,11 @@ DROP TABLE IF EXISTS `entries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `entries` (
-  `id` int(11) NOT NULL,
-  `sectionId` int(11) NOT NULL,
-  `parentId` int(11) DEFAULT NULL,
-  `typeId` int(11) NOT NULL,
-  `authorId` int(11) DEFAULT NULL,
+  `id` int NOT NULL,
+  `sectionId` int NOT NULL,
+  `parentId` int DEFAULT NULL,
+  `typeId` int NOT NULL,
+  `authorId` int DEFAULT NULL,
   `postDate` datetime DEFAULT NULL,
   `expiryDate` datetime DEFAULT NULL,
   `deletedWithEntryType` tinyint(1) DEFAULT NULL,
@@ -486,7 +512,7 @@ CREATE TABLE `entries` (
   CONSTRAINT `fk_ghkazrowjqaugylhrqegvoktcvjqvizhpibk` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_kphjkgqpdraukedkfrlpfkojlsluvoeownhv` FOREIGN KEY (`authorId`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_mdghgfqujrpbbagdttyllnbjzkehuolwljvi` FOREIGN KEY (`sectionId`) REFERENCES `sections` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -497,16 +523,19 @@ DROP TABLE IF EXISTS `entrytypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `entrytypes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sectionId` int(11) NOT NULL,
-  `fieldLayoutId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sectionId` int NOT NULL,
+  `fieldLayoutId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
-  `hasTitleField` tinyint(1) NOT NULL DEFAULT 1,
+  `hasTitleField` tinyint(1) NOT NULL DEFAULT '1',
   `titleTranslationMethod` varchar(255) NOT NULL DEFAULT 'site',
-  `titleTranslationKeyFormat` text DEFAULT NULL,
+  `titleTranslationKeyFormat` text,
   `titleFormat` varchar(255) DEFAULT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `slugTranslationMethod` varchar(255) NOT NULL DEFAULT 'site',
+  `slugTranslationKeyFormat` text,
+  `showStatusField` tinyint(1) DEFAULT '1',
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateDeleted` datetime DEFAULT NULL,
@@ -519,7 +548,7 @@ CREATE TABLE `entrytypes` (
   KEY `idx_gdrhhrqrpzfdglpvdkpnjghalynipqvjqavt` (`dateDeleted`),
   CONSTRAINT `fk_bbygqhyotfkfggyozchjimcuxenpcndplcyc` FOREIGN KEY (`sectionId`) REFERENCES `sections` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_zpgtppydpsotyaqivnvqggvafsqnjdegctgc` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +559,7 @@ DROP TABLE IF EXISTS `fieldgroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fieldgroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -539,7 +568,7 @@ CREATE TABLE `fieldgroups` (
   PRIMARY KEY (`id`),
   KEY `idx_xtmtqrblskcwcummfvhpysisybzysruwekal` (`name`),
   KEY `idx_szplomegfwzqcpsiqhipoaeqfrtxwemrgell` (`dateDeleted`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -550,12 +579,12 @@ DROP TABLE IF EXISTS `fieldlayoutfields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fieldlayoutfields` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `layoutId` int(11) NOT NULL,
-  `tabId` int(11) NOT NULL,
-  `fieldId` int(11) NOT NULL,
-  `required` tinyint(1) NOT NULL DEFAULT 0,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `layoutId` int NOT NULL,
+  `tabId` int NOT NULL,
+  `fieldId` int NOT NULL,
+  `required` tinyint(1) NOT NULL DEFAULT '0',
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -567,7 +596,7 @@ CREATE TABLE `fieldlayoutfields` (
   CONSTRAINT `fk_mvzjwyynfvzhghknuugejpwuxjrhwuqtnhdq` FOREIGN KEY (`layoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_oudqevqxgjztvognxdvjwsvbdnaurwavpeos` FOREIGN KEY (`fieldId`) REFERENCES `fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_pcznrvatxlcwraagttthiyashjxwdfvsbxmu` FOREIGN KEY (`tabId`) REFERENCES `fieldlayouttabs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -578,7 +607,7 @@ DROP TABLE IF EXISTS `fieldlayouts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fieldlayouts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -587,7 +616,7 @@ CREATE TABLE `fieldlayouts` (
   PRIMARY KEY (`id`),
   KEY `idx_porfuxkhioydaegqpkvwzrhbjqdlymnptiaj` (`dateDeleted`),
   KEY `idx_dvvsllmctrsflpsdbyfsllbxegavqfulsaol` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -598,12 +627,12 @@ DROP TABLE IF EXISTS `fieldlayouttabs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fieldlayouttabs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `layoutId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `layoutId` int NOT NULL,
   `name` varchar(255) NOT NULL,
-  `settings` text DEFAULT NULL,
-  `elements` text DEFAULT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `settings` text,
+  `elements` text,
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -611,7 +640,7 @@ CREATE TABLE `fieldlayouttabs` (
   KEY `idx_njvijoydkdsnogececqenzauzbqtjbwvhdml` (`sortOrder`),
   KEY `idx_rhjwmvpzsxpkdhdctfjrvbqmlicqtwjesgzw` (`layoutId`),
   CONSTRAINT `fk_aasthmbprmjmrrlwfjtftwepxkndijyyiaeg` FOREIGN KEY (`layoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -622,18 +651,18 @@ DROP TABLE IF EXISTS `fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `fields` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `groupId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `handle` varchar(64) NOT NULL,
   `context` varchar(255) NOT NULL DEFAULT 'global',
   `columnSuffix` char(8) DEFAULT NULL,
-  `instructions` text DEFAULT NULL,
-  `searchable` tinyint(1) NOT NULL DEFAULT 1,
+  `instructions` text,
+  `searchable` tinyint(1) NOT NULL DEFAULT '1',
   `translationMethod` varchar(255) NOT NULL DEFAULT 'none',
-  `translationKeyFormat` text DEFAULT NULL,
+  `translationKeyFormat` text,
   `type` varchar(255) NOT NULL,
-  `settings` text DEFAULT NULL,
+  `settings` text,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -642,7 +671,7 @@ CREATE TABLE `fields` (
   KEY `idx_ojocdnqkxvxmwijtmhwsunpyqmeuelpmcndk` (`groupId`),
   KEY `idx_wohsenuzghysnjltitigfhukxtuvilturqdb` (`context`),
   CONSTRAINT `fk_klvvyyxtgeppszupgmdkhbhmxoxzyhzpchua` FOREIGN KEY (`groupId`) REFERENCES `fieldgroups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -653,11 +682,11 @@ DROP TABLE IF EXISTS `globalsets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `globalsets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
-  `fieldLayoutId` int(11) DEFAULT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `fieldLayoutId` int DEFAULT NULL,
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -668,7 +697,7 @@ CREATE TABLE `globalsets` (
   KEY `idx_fahadesqaeaudbslshxmywalccwfvcalirmn` (`sortOrder`),
   CONSTRAINT `fk_kucpdegkyrtvwqchcbfclvkxrmfyimduxbyj` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_ulnriqzneggdyobhjjzodnclkcgokarenpnl` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -679,15 +708,15 @@ DROP TABLE IF EXISTS `gqlschemas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gqlschemas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `scope` text DEFAULT NULL,
-  `isPublic` tinyint(1) NOT NULL DEFAULT 0,
+  `scope` text,
+  `isPublic` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -698,13 +727,13 @@ DROP TABLE IF EXISTS `gqltokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gqltokens` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `accessToken` varchar(255) NOT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `expiryDate` datetime DEFAULT NULL,
   `lastUsed` datetime DEFAULT NULL,
-  `schemaId` int(11) DEFAULT NULL,
+  `schemaId` int DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -713,7 +742,7 @@ CREATE TABLE `gqltokens` (
   UNIQUE KEY `idx_oonphygxndnjvnyaezgkeffewuamobrxoysu` (`name`),
   KEY `fk_gyhoemdpdmnrktwjbayauwpykjemmhilubqs` (`schemaId`),
   CONSTRAINT `fk_gyhoemdpdmnrktwjbayauwpykjemmhilubqs` FOREIGN KEY (`schemaId`) REFERENCES `gqlschemas` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -724,22 +753,22 @@ DROP TABLE IF EXISTS `imagetransformindex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `imagetransformindex` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `assetId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `assetId` int NOT NULL,
   `transformer` varchar(255) DEFAULT NULL,
   `filename` varchar(255) DEFAULT NULL,
   `format` varchar(255) DEFAULT NULL,
   `transformString` varchar(255) NOT NULL,
-  `fileExists` tinyint(1) NOT NULL DEFAULT 0,
-  `inProgress` tinyint(1) NOT NULL DEFAULT 0,
-  `error` tinyint(1) NOT NULL DEFAULT 0,
+  `fileExists` tinyint(1) NOT NULL DEFAULT '0',
+  `inProgress` tinyint(1) NOT NULL DEFAULT '0',
+  `error` tinyint(1) NOT NULL DEFAULT '0',
   `dateIndexed` datetime DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_bytpygkkkfmzbkkbelegknimsthkxsdjdbgf` (`assetId`,`transformString`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -750,18 +779,18 @@ DROP TABLE IF EXISTS `imagetransforms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `imagetransforms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
   `mode` enum('stretch','fit','crop','letterbox') NOT NULL DEFAULT 'crop',
   `position` enum('top-left','top-center','top-right','center-left','center-center','center-right','bottom-left','bottom-center','bottom-right') NOT NULL DEFAULT 'center-center',
-  `width` int(11) unsigned DEFAULT NULL,
-  `height` int(11) unsigned DEFAULT NULL,
+  `width` int unsigned DEFAULT NULL,
+  `height` int unsigned DEFAULT NULL,
   `format` varchar(255) DEFAULT NULL,
-  `quality` int(11) DEFAULT NULL,
+  `quality` int DEFAULT NULL,
   `interlace` enum('none','line','plane','partition') NOT NULL DEFAULT 'none',
   `fill` varchar(11) DEFAULT NULL,
-  `upscale` tinyint(1) NOT NULL DEFAULT 1,
+  `upscale` tinyint(1) NOT NULL DEFAULT '1',
   `parameterChangeTime` datetime DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -769,7 +798,7 @@ CREATE TABLE `imagetransforms` (
   PRIMARY KEY (`id`),
   KEY `idx_hztctdhplzawfintenhbovmahvborbxstvgu` (`name`),
   KEY `idx_mtdkurvrdzhuiylvurmemzigppquniwbqkga` (`handle`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -780,17 +809,17 @@ DROP TABLE IF EXISTS `info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `version` varchar(50) NOT NULL,
   `schemaVersion` varchar(15) NOT NULL,
-  `maintenance` tinyint(1) NOT NULL DEFAULT 0,
+  `maintenance` tinyint(1) NOT NULL DEFAULT '0',
   `configVersion` char(12) NOT NULL DEFAULT '000000000000',
   `fieldVersion` char(12) NOT NULL DEFAULT '000000000000',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -801,10 +830,10 @@ DROP TABLE IF EXISTS `matrixblocks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `matrixblocks` (
-  `id` int(11) NOT NULL,
-  `primaryOwnerId` int(11) NOT NULL,
-  `fieldId` int(11) NOT NULL,
-  `typeId` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `primaryOwnerId` int NOT NULL,
+  `fieldId` int NOT NULL,
+  `typeId` int NOT NULL,
   `deletedWithOwner` tinyint(1) DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -816,7 +845,7 @@ CREATE TABLE `matrixblocks` (
   CONSTRAINT `fk_kjhqrobspkpqvbhdqyeidaluftnqqcnwgmvj` FOREIGN KEY (`fieldId`) REFERENCES `fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_oqdbtepwqaskenuyblkgcnakptyubcqumfbi` FOREIGN KEY (`primaryOwnerId`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_tkwpgtvorwkdqqklexteownhhacvvshwddux` FOREIGN KEY (`typeId`) REFERENCES `matrixblocktypes` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -827,14 +856,14 @@ DROP TABLE IF EXISTS `matrixblocks_owners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `matrixblocks_owners` (
-  `blockId` int(11) NOT NULL,
-  `ownerId` int(11) NOT NULL,
-  `sortOrder` smallint(6) unsigned NOT NULL,
+  `blockId` int NOT NULL,
+  `ownerId` int NOT NULL,
+  `sortOrder` smallint unsigned NOT NULL,
   PRIMARY KEY (`blockId`,`ownerId`),
   KEY `fk_fsifbndqzlivwbsvxicbkpggfqwwhjwchxwe` (`ownerId`),
   CONSTRAINT `fk_fsifbndqzlivwbsvxicbkpggfqwwhjwchxwe` FOREIGN KEY (`ownerId`) REFERENCES `elements` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_wadajxnmuxrgfqvyjvrnvnnyfmrjdmjdynga` FOREIGN KEY (`blockId`) REFERENCES `matrixblocks` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -845,12 +874,12 @@ DROP TABLE IF EXISTS `matrixblocktypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `matrixblocktypes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fieldId` int(11) NOT NULL,
-  `fieldLayoutId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fieldId` int NOT NULL,
+  `fieldLayoutId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -861,7 +890,7 @@ CREATE TABLE `matrixblocktypes` (
   KEY `idx_tnqnnxnlfqvomxegotbvpxdaolchzinodole` (`fieldLayoutId`),
   CONSTRAINT `fk_abtzlnkwopwgckpbgzbphteezzsqiytkoezs` FOREIGN KEY (`fieldId`) REFERENCES `fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_cfgqiamzmqxzdbcvatbpyfpmrxittvianpvu` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -872,20 +901,20 @@ DROP TABLE IF EXISTS `matrixcontent_postcontent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `matrixcontent_postcontent` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `elementId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `elementId` int NOT NULL,
+  `siteId` int NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
-  `field_text_text_acuemsza` text DEFAULT NULL,
-  `field_quote_quote_xghluocz` text DEFAULT NULL,
+  `field_text_text_acuemsza` text,
+  `field_quote_quote_xghluocz` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_bxrwnltdyjsztcjuwrfergzjliaxdtgaualv` (`elementId`,`siteId`),
   KEY `fk_lhubzvxstpbcnkbifbwwmgaixoigigyzqvjd` (`siteId`),
   CONSTRAINT `fk_lhubzvxstpbcnkbifbwwmgaixoigigyzqvjd` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_wsmbckodmsnbfjvrexetxzkpegcnurbzplnt` FOREIGN KEY (`elementId`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -896,7 +925,7 @@ DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `migrations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `track` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `applyTime` datetime NOT NULL,
@@ -905,7 +934,7 @@ CREATE TABLE `migrations` (
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_zcxnewffjbqwogotdarqjewhcngzwhzcmjqp` (`track`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -916,7 +945,7 @@ DROP TABLE IF EXISTS `plugins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `plugins` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `handle` varchar(255) NOT NULL,
   `version` varchar(255) NOT NULL,
   `schemaVersion` varchar(255) NOT NULL,
@@ -926,7 +955,7 @@ CREATE TABLE `plugins` (
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_hhpkijzyhmldfgykzxjlesdudzuteomigaqd` (`handle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -940,7 +969,7 @@ CREATE TABLE `projectconfig` (
   `path` varchar(255) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`path`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -951,26 +980,26 @@ DROP TABLE IF EXISTS `queue`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `queue` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `channel` varchar(255) NOT NULL DEFAULT 'queue',
   `job` longblob NOT NULL,
-  `description` text DEFAULT NULL,
-  `timePushed` int(11) NOT NULL,
-  `ttr` int(11) NOT NULL,
-  `delay` int(11) NOT NULL DEFAULT 0,
-  `priority` int(11) unsigned NOT NULL DEFAULT 1024,
+  `description` text,
+  `timePushed` int NOT NULL,
+  `ttr` int NOT NULL,
+  `delay` int NOT NULL DEFAULT '0',
+  `priority` int unsigned NOT NULL DEFAULT '1024',
   `dateReserved` datetime DEFAULT NULL,
-  `timeUpdated` int(11) DEFAULT NULL,
-  `progress` smallint(6) NOT NULL DEFAULT 0,
+  `timeUpdated` int DEFAULT NULL,
+  `progress` smallint NOT NULL DEFAULT '0',
   `progressLabel` varchar(255) DEFAULT NULL,
-  `attempt` int(11) DEFAULT NULL,
-  `fail` tinyint(1) DEFAULT 0,
+  `attempt` int DEFAULT NULL,
+  `fail` tinyint(1) DEFAULT '0',
   `dateFailed` datetime DEFAULT NULL,
-  `error` text DEFAULT NULL,
+  `error` text,
   PRIMARY KEY (`id`),
   KEY `idx_hogpmjbnwtxftatqbyrtttydjzeytcgxucsp` (`channel`,`fail`,`timeUpdated`,`timePushed`),
   KEY `idx_lmxprwvgbidzhhnqlvcquutuocasrbpzwasw` (`channel`,`fail`,`timeUpdated`,`delay`)
-) ENGINE=InnoDB AUTO_INCREMENT=363 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=366 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -981,12 +1010,12 @@ DROP TABLE IF EXISTS `relations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `relations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fieldId` int(11) NOT NULL,
-  `sourceId` int(11) NOT NULL,
-  `sourceSiteId` int(11) DEFAULT NULL,
-  `targetId` int(11) NOT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fieldId` int NOT NULL,
+  `sourceId` int NOT NULL,
+  `sourceSiteId` int DEFAULT NULL,
+  `targetId` int NOT NULL,
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -998,7 +1027,7 @@ CREATE TABLE `relations` (
   CONSTRAINT `fk_apxxkbvionlazxyfcglrnyaxaasxyvcrngcb` FOREIGN KEY (`fieldId`) REFERENCES `fields` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_jowpxzlyfidivyscgfijrprdbnouzzziwmhw` FOREIGN KEY (`sourceSiteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_wtsbcykpbljddtcorpevogyteitjccyyqlao` FOREIGN KEY (`sourceId`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1012,7 +1041,7 @@ CREATE TABLE `resourcepaths` (
   `hash` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
   PRIMARY KEY (`hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1023,17 +1052,17 @@ DROP TABLE IF EXISTS `revisions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `revisions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `canonicalId` int(11) NOT NULL,
-  `creatorId` int(11) DEFAULT NULL,
-  `num` int(11) NOT NULL,
-  `notes` text DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `canonicalId` int NOT NULL,
+  `creatorId` int DEFAULT NULL,
+  `num` int NOT NULL,
+  `notes` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_dusrarvlizmcppfbngtcmblhaarmgdzccvxt` (`canonicalId`,`num`),
   KEY `fk_kadadcekqwaujkyeugrbhuxhmzsfknyiggbx` (`creatorId`),
   CONSTRAINT `fk_kadadcekqwaujkyeugrbhuxhmzsfknyiggbx` FOREIGN KEY (`creatorId`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_ubrslactsidqfxideivlavdzafdbcaqbszei` FOREIGN KEY (`canonicalId`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1044,14 +1073,14 @@ DROP TABLE IF EXISTS `searchindex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `searchindex` (
-  `elementId` int(11) NOT NULL,
+  `elementId` int NOT NULL,
   `attribute` varchar(25) NOT NULL,
-  `fieldId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
+  `fieldId` int NOT NULL,
+  `siteId` int NOT NULL,
   `keywords` text NOT NULL,
   PRIMARY KEY (`elementId`,`attribute`,`fieldId`,`siteId`),
   FULLTEXT KEY `idx_wpzrsvzwwjqghuxtainqvwtqcgtzqexszzfj` (`keywords`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1062,15 +1091,15 @@ DROP TABLE IF EXISTS `sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sections` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `structureId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `structureId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
   `type` enum('single','channel','structure') NOT NULL DEFAULT 'channel',
-  `enableVersioning` tinyint(1) NOT NULL DEFAULT 0,
+  `enableVersioning` tinyint(1) NOT NULL DEFAULT '0',
   `propagationMethod` varchar(255) NOT NULL DEFAULT 'all',
   `defaultPlacement` enum('beginning','end') NOT NULL DEFAULT 'end',
-  `previewTargets` text DEFAULT NULL,
+  `previewTargets` text,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateDeleted` datetime DEFAULT NULL,
@@ -1081,7 +1110,7 @@ CREATE TABLE `sections` (
   KEY `idx_jkrarfnznrulepbnklikybtozvhuaczeeyan` (`structureId`),
   KEY `idx_vemdfoxxzsxunbfkyoyxvtromexugmttdpjl` (`dateDeleted`),
   CONSTRAINT `fk_otbcbmzcyqepfnbbuxsrbecedhkcyqjpbvku` FOREIGN KEY (`structureId`) REFERENCES `structures` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1092,13 +1121,13 @@ DROP TABLE IF EXISTS `sections_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sections_sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sectionId` int(11) NOT NULL,
-  `siteId` int(11) NOT NULL,
-  `hasUrls` tinyint(1) NOT NULL DEFAULT 1,
-  `uriFormat` text DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sectionId` int NOT NULL,
+  `siteId` int NOT NULL,
+  `hasUrls` tinyint(1) NOT NULL DEFAULT '1',
+  `uriFormat` text,
   `template` varchar(500) DEFAULT NULL,
-  `enabledByDefault` tinyint(1) NOT NULL DEFAULT 1,
+  `enabledByDefault` tinyint(1) NOT NULL DEFAULT '1',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -1107,7 +1136,7 @@ CREATE TABLE `sections_sites` (
   KEY `idx_yhzktybgdxaldiywlywazolvxdbejothbvnb` (`siteId`),
   CONSTRAINT `fk_abikejsejamwcvsyjqtbuznuxwvlxxcarmvt` FOREIGN KEY (`sectionId`) REFERENCES `sections` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_xjsxzxkiqmmoewapzxqtpuqhcdvatpoqgmns` FOREIGN KEY (`siteId`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1119,9 +1148,9 @@ DROP TABLE IF EXISTS `sequences`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sequences` (
   `name` varchar(255) NOT NULL,
-  `next` int(11) unsigned NOT NULL DEFAULT 1,
+  `next` int unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1132,8 +1161,8 @@ DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
   `token` char(100) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -1144,7 +1173,7 @@ CREATE TABLE `sessions` (
   KEY `idx_mqfuikohbrrjqwvnwntriimdbqavnisbpmbj` (`dateUpdated`),
   KEY `idx_fsdqquymjdkmaizpmpakksxlgqcbeaechcbd` (`userId`),
   CONSTRAINT `fk_segypwkrmmuleufxofbxinikkhnnzdybnmqh` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1155,8 +1184,8 @@ DROP TABLE IF EXISTS `shunnedmessages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shunnedmessages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
   `message` varchar(255) NOT NULL,
   `expiryDate` datetime DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
@@ -1165,7 +1194,7 @@ CREATE TABLE `shunnedmessages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_ubxkyjqrabvsiaqirznjuuhncbblmyfokvxw` (`userId`,`message`),
   CONSTRAINT `fk_fdjwjwwxevubghjwqqdaaspsnfcyafozwzpj` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1176,7 +1205,7 @@ DROP TABLE IF EXISTS `sitegroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sitegroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -1184,7 +1213,7 @@ CREATE TABLE `sitegroups` (
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_gnhxgsgdvtmnjhucucvjyfijhtukbzhlrtdy` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1195,16 +1224,16 @@ DROP TABLE IF EXISTS `sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `groupId` int NOT NULL,
   `primary` tinyint(1) NOT NULL,
   `enabled` varchar(255) NOT NULL DEFAULT 'true',
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
   `language` varchar(12) NOT NULL,
-  `hasUrls` tinyint(1) NOT NULL DEFAULT 0,
+  `hasUrls` tinyint(1) NOT NULL DEFAULT '0',
   `baseUrl` varchar(255) DEFAULT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateDeleted` datetime DEFAULT NULL,
@@ -1215,7 +1244,7 @@ CREATE TABLE `sites` (
   KEY `idx_ppmcryuavkfbbzpiynfvfumhdckezicqdivh` (`sortOrder`),
   KEY `fk_hrnrhpmcrzibzwqbrqfsxbhokadzlgijbspa` (`groupId`),
   CONSTRAINT `fk_hrnrhpmcrzibzwqbrqfsxbhokadzlgijbspa` FOREIGN KEY (`groupId`) REFERENCES `sitegroups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1226,13 +1255,13 @@ DROP TABLE IF EXISTS `structureelements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `structureelements` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `structureId` int(11) NOT NULL,
-  `elementId` int(11) DEFAULT NULL,
-  `root` int(11) unsigned DEFAULT NULL,
-  `lft` int(11) unsigned NOT NULL,
-  `rgt` int(11) unsigned NOT NULL,
-  `level` smallint(6) unsigned NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `structureId` int NOT NULL,
+  `elementId` int DEFAULT NULL,
+  `root` int unsigned DEFAULT NULL,
+  `lft` int unsigned NOT NULL,
+  `rgt` int unsigned NOT NULL,
+  `level` smallint unsigned NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -1244,7 +1273,7 @@ CREATE TABLE `structureelements` (
   KEY `idx_gryaajikqdavatbsachxlgttaqydmbpglssa` (`level`),
   KEY `idx_eoujlhblrqcvsviepvvkmpwlekevjvytuywk` (`elementId`),
   CONSTRAINT `fk_nfnyyapxydkjuuzwvnuczaoxazgnyrselxez` FOREIGN KEY (`structureId`) REFERENCES `structures` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1255,15 +1284,15 @@ DROP TABLE IF EXISTS `structures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `structures` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `maxLevels` smallint(6) unsigned DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `maxLevels` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateDeleted` datetime DEFAULT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_hkrgcefhrkgwufjfflvwnjzdrgjtyoblqfbe` (`dateDeleted`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1274,7 +1303,7 @@ DROP TABLE IF EXISTS `systemmessages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `systemmessages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `language` varchar(255) NOT NULL,
   `key` varchar(255) NOT NULL,
   `subject` text NOT NULL,
@@ -1285,7 +1314,7 @@ CREATE TABLE `systemmessages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_hconmjxnhbkkgmltpyvbevvpodtmnuigmzab` (`key`,`language`),
   KEY `idx_aiyuypneonmoyznuxtcoaxbyapzgvnfzvzgn` (`language`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1296,10 +1325,10 @@ DROP TABLE IF EXISTS `taggroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `taggroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
-  `fieldLayoutId` int(11) DEFAULT NULL,
+  `fieldLayoutId` int DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateDeleted` datetime DEFAULT NULL,
@@ -1310,7 +1339,7 @@ CREATE TABLE `taggroups` (
   KEY `idx_qoezompvqajvjrlqsrxyrpfyrijalytsgqch` (`dateDeleted`),
   KEY `fk_qnnqctyrqvccipqmknhrgliahnpxjnzoktee` (`fieldLayoutId`),
   CONSTRAINT `fk_qnnqctyrqvccipqmknhrgliahnpxjnzoktee` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1321,8 +1350,8 @@ DROP TABLE IF EXISTS `tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tags` (
-  `id` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `groupId` int NOT NULL,
   `deletedWithGroup` tinyint(1) DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -1330,7 +1359,7 @@ CREATE TABLE `tags` (
   KEY `idx_rvkwhmjxgtiskbhnyvydffslgxsctawrbgpn` (`groupId`),
   CONSTRAINT `fk_amysrqolgfmpmhpbslbiwpkowqzlxdicjtgk` FOREIGN KEY (`groupId`) REFERENCES `taggroups` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_sbalfrjftqvhpteljajwirsnjdjvzybjqqbd` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1341,11 +1370,11 @@ DROP TABLE IF EXISTS `tokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tokens` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `token` char(32) NOT NULL,
-  `route` text DEFAULT NULL,
-  `usageLimit` tinyint(3) unsigned DEFAULT NULL,
-  `usageCount` tinyint(3) unsigned DEFAULT NULL,
+  `route` text,
+  `usageLimit` tinyint unsigned DEFAULT NULL,
+  `usageCount` tinyint unsigned DEFAULT NULL,
   `expiryDate` datetime NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -1353,7 +1382,7 @@ CREATE TABLE `tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_lfzygozgbqrvpsttpynxigrtevhrhbkrvele` (`token`),
   KEY `idx_yiyjdauouivmxyawzlpbahccfojaskrquhrw` (`expiryDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1364,17 +1393,17 @@ DROP TABLE IF EXISTS `usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usergroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_doeixetolnohdwggwpvfmkehojurmepyeqlz` (`handle`),
   KEY `idx_vpjlyvioasgmnmiczyhaznkvtdvtroneyjwd` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1385,9 +1414,9 @@ DROP TABLE IF EXISTS `usergroups_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usergroups_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `groupId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `groupId` int NOT NULL,
+  `userId` int NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -1396,7 +1425,7 @@ CREATE TABLE `usergroups_users` (
   KEY `idx_zkozpzkyyxdvnqwdojaientbejhkjujkgbvi` (`userId`),
   CONSTRAINT `fk_lkgchycinlugsuvevozmjhqftsrawxpatiwo` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_yoztflbnxrcxcvfuujtdwkfrmfbebxdlyofg` FOREIGN KEY (`groupId`) REFERENCES `usergroups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1407,14 +1436,14 @@ DROP TABLE IF EXISTS `userpermissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userpermissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_rfsaffcxuqmrxhqoudlkwvteunbseofwdpuj` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1425,9 +1454,9 @@ DROP TABLE IF EXISTS `userpermissions_usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userpermissions_usergroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `permissionId` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `permissionId` int NOT NULL,
+  `groupId` int NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -1436,7 +1465,7 @@ CREATE TABLE `userpermissions_usergroups` (
   KEY `idx_gcucssitncgbqctcpznumzsixgruduhsdhqw` (`groupId`),
   CONSTRAINT `fk_avmmpvvyzcgkcjauubafdtklgatsqulthsgx` FOREIGN KEY (`permissionId`) REFERENCES `userpermissions` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_ennkhrkhpyrkjmgqbdeadsgklxqdytgvncay` FOREIGN KEY (`groupId`) REFERENCES `usergroups` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1447,9 +1476,9 @@ DROP TABLE IF EXISTS `userpermissions_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userpermissions_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `permissionId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `permissionId` int NOT NULL,
+  `userId` int NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
@@ -1458,7 +1487,7 @@ CREATE TABLE `userpermissions_users` (
   KEY `idx_arvrfzynilbccacznegckvrehnqgwbozglbo` (`userId`),
   CONSTRAINT `fk_mhgvjgwvcsnvkphazdgcvnnhncfqjlbgqaue` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_txksrmrwszltjoeevqyvmbxcsmzdhofvadoy` FOREIGN KEY (`permissionId`) REFERENCES `userpermissions` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1469,11 +1498,11 @@ DROP TABLE IF EXISTS `userpreferences`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userpreferences` (
-  `userId` int(11) NOT NULL AUTO_INCREMENT,
-  `preferences` text DEFAULT NULL,
+  `userId` int NOT NULL AUTO_INCREMENT,
+  `preferences` text,
   PRIMARY KEY (`userId`),
   CONSTRAINT `fk_ssxkzopriiaurfkfbcrhgllvrbzqgbhfgnbs` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1484,13 +1513,13 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `photoId` int(11) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `pending` tinyint(1) NOT NULL DEFAULT 0,
-  `locked` tinyint(1) NOT NULL DEFAULT 0,
-  `suspended` tinyint(1) NOT NULL DEFAULT 0,
-  `admin` tinyint(1) NOT NULL DEFAULT 0,
+  `id` int NOT NULL,
+  `photoId` int DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `pending` tinyint(1) NOT NULL DEFAULT '0',
+  `locked` tinyint(1) NOT NULL DEFAULT '0',
+  `suspended` tinyint(1) NOT NULL DEFAULT '0',
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
   `username` varchar(255) DEFAULT NULL,
   `fullName` varchar(255) DEFAULT NULL,
   `firstName` varchar(255) DEFAULT NULL,
@@ -1500,14 +1529,14 @@ CREATE TABLE `users` (
   `lastLoginDate` datetime DEFAULT NULL,
   `lastLoginAttemptIp` varchar(45) DEFAULT NULL,
   `invalidLoginWindowStart` datetime DEFAULT NULL,
-  `invalidLoginCount` tinyint(3) unsigned DEFAULT NULL,
+  `invalidLoginCount` tinyint unsigned DEFAULT NULL,
   `lastInvalidLoginDate` datetime DEFAULT NULL,
   `lockoutDate` datetime DEFAULT NULL,
-  `hasDashboard` tinyint(1) NOT NULL DEFAULT 0,
+  `hasDashboard` tinyint(1) NOT NULL DEFAULT '0',
   `verificationCode` varchar(255) DEFAULT NULL,
   `verificationCodeIssuedDate` datetime DEFAULT NULL,
   `unverifiedEmail` varchar(255) DEFAULT NULL,
-  `passwordResetRequired` tinyint(1) NOT NULL DEFAULT 0,
+  `passwordResetRequired` tinyint(1) NOT NULL DEFAULT '0',
   `lastPasswordChangeDate` datetime DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
@@ -1522,7 +1551,7 @@ CREATE TABLE `users` (
   KEY `fk_jawwrvhdefcatyiryhybcmwvxqqkqkvtylgo` (`photoId`),
   CONSTRAINT `fk_jawwrvhdefcatyiryhybcmwvxqqkqkvtylgo` FOREIGN KEY (`photoId`) REFERENCES `assets` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fk_mjirdtcretvqynhwuyhfxgcnhsrivcwjfkgt` FOREIGN KEY (`id`) REFERENCES `elements` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1533,9 +1562,9 @@ DROP TABLE IF EXISTS `volumefolders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `volumefolders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parentId` int(11) DEFAULT NULL,
-  `volumeId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `parentId` int DEFAULT NULL,
+  `volumeId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `path` varchar(255) DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
@@ -1547,7 +1576,7 @@ CREATE TABLE `volumefolders` (
   KEY `idx_cutqtzfwfwcujppcfcmkcrxsjwxwhaswvkdd` (`volumeId`),
   CONSTRAINT `fk_muxajjqeoychvccqmfugcnqfcvembyyunoet` FOREIGN KEY (`volumeId`) REFERENCES `volumes` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_qcwptisozdmiygxmlzvuvebpudnsmjmwtjvd` FOREIGN KEY (`parentId`) REFERENCES `volumefolders` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1558,16 +1587,16 @@ DROP TABLE IF EXISTS `volumes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `volumes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fieldLayoutId` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fieldLayoutId` int DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `handle` varchar(255) NOT NULL,
   `fs` varchar(255) NOT NULL,
   `transformFs` varchar(255) DEFAULT NULL,
   `transformSubpath` varchar(255) DEFAULT NULL,
   `titleTranslationMethod` varchar(255) NOT NULL DEFAULT 'site',
-  `titleTranslationKeyFormat` text DEFAULT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
+  `titleTranslationKeyFormat` text,
+  `sortOrder` smallint unsigned DEFAULT NULL,
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `dateDeleted` datetime DEFAULT NULL,
@@ -1578,7 +1607,7 @@ CREATE TABLE `volumes` (
   KEY `idx_lwvqbhkefjlssadnqahwdonjrwxsthvtnjqp` (`fieldLayoutId`),
   KEY `idx_ibchiojlylsyhwezuwwdjjqjhcitfqzdrzzx` (`dateDeleted`),
   CONSTRAINT `fk_wflbcsnrdszwelhtmnagnxajzwxgkvcjwhvj` FOREIGN KEY (`fieldLayoutId`) REFERENCES `fieldlayouts` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1589,20 +1618,20 @@ DROP TABLE IF EXISTS `widgets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `widgets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
   `type` varchar(255) NOT NULL,
-  `sortOrder` smallint(6) unsigned DEFAULT NULL,
-  `colspan` tinyint(3) DEFAULT NULL,
-  `settings` text DEFAULT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `sortOrder` smallint unsigned DEFAULT NULL,
+  `colspan` tinyint DEFAULT NULL,
+  `settings` text,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `dateCreated` datetime NOT NULL,
   `dateUpdated` datetime NOT NULL,
   `uid` char(36) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_dcncaebcjyntybljozgcaukgwsqxvaoqpkze` (`userId`),
   CONSTRAINT `fk_hkidofpseharsjuatrekesehrkzgpurvixxl` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1618,12 +1647,12 @@ CREATE TABLE `widgets` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-25 16:29:43
--- MariaDB dump 10.19  Distrib 10.5.18-MariaDB, for debian-linux-gnu (x86_64)
+-- Dump completed on 2023-09-14 21:16:54
+-- MariaDB dump 10.19  Distrib 10.5.19-MariaDB, for debian-linux-gnu (aarch64)
 --
 -- Host: db    Database: db
 -- ------------------------------------------------------
--- Server version	10.4.28-MariaDB-1:10.4.28+maria~ubu2004-log
+-- Server version	8.0.33-0ubuntu0.20.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1786,6 +1815,17 @@ UNLOCK TABLES;
 commit;
 
 --
+-- Dumping data for table `elementactivity`
+--
+
+LOCK TABLES `elementactivity` WRITE;
+/*!40000 ALTER TABLE `elementactivity` DISABLE KEYS */;
+set autocommit=0;
+/*!40000 ALTER TABLE `elementactivity` ENABLE KEYS */;
+UNLOCK TABLES;
+commit;
+
+--
 -- Dumping data for table `elements`
 --
 
@@ -1828,7 +1868,7 @@ commit;
 LOCK TABLES `entrytypes` WRITE;
 /*!40000 ALTER TABLE `entrytypes` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `entrytypes` VALUES (2,2,2,'Post','post',1,'site',NULL,NULL,1,'2023-02-23 01:51:37','2023-02-24 22:05:01',NULL,'c3785700-c808-470f-bb7f-2ae46d6731e8'),(3,3,8,'About','about',0,'site',NULL,'{section.name|raw}',1,'2023-05-23 17:15:24','2023-05-23 17:15:24',NULL,'228d4acb-c42e-4d3d-ad21-8dc3d1ea0027');
+INSERT INTO `entrytypes` VALUES (2,2,2,'Post','post',1,'site',NULL,NULL,'site',NULL,1,1,'2023-02-23 01:51:37','2023-02-24 22:05:01',NULL,'c3785700-c808-470f-bb7f-2ae46d6731e8'),(3,3,8,'About','about',0,'site',NULL,'{section.name|raw}','site',NULL,1,1,'2023-05-23 17:15:24','2023-05-23 17:15:24',NULL,'228d4acb-c42e-4d3d-ad21-8dc3d1ea0027');
 /*!40000 ALTER TABLE `entrytypes` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -1947,7 +1987,7 @@ commit;
 LOCK TABLES `info` WRITE;
 /*!40000 ALTER TABLE `info` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `info` VALUES (1,'4.4.13','4.4.0.4',0,'qyuaqyveordq','3@gycguyzmqu','2023-02-21 22:21:32','2023-05-25 16:17:34','22a2e5f5-2035-442e-a171-7f6a96746f01');
+INSERT INTO `info` VALUES (1,'4.5.4','4.5.3.0',0,'kfxwhgezelxf','3@gycguyzmqu','2023-02-21 22:21:32','2023-09-14 21:11:07','22a2e5f5-2035-442e-a171-7f6a96746f01');
 /*!40000 ALTER TABLE `info` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -2007,7 +2047,7 @@ commit;
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `migrations` VALUES (1,'craft','Install','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','a8344387-b9d1-42be-a709-5510fc2754d7'),(2,'craft','m210121_145800_asset_indexing_changes','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','0ac8c4c0-3422-426e-917f-491872ae55e5'),(3,'craft','m210624_222934_drop_deprecated_tables','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','14f900de-a0a2-48b8-855a-30ab4ac9977a'),(4,'craft','m210724_180756_rename_source_cols','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','4b02d666-1477-42b8-99be-1070d5221126'),(5,'craft','m210809_124211_remove_superfluous_uids','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','eb816743-06ed-4ff2-864f-24e3b1fd83be'),(6,'craft','m210817_014201_universal_users','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','047ab65b-6581-4684-b5e3-11b939c8ca3a'),(7,'craft','m210904_132612_store_element_source_settings_in_project_config','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','01507865-1718-49c7-be6c-edb9bad1c2e2'),(8,'craft','m211115_135500_image_transformers','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','4acaf206-7e91-400a-8651-9748c0ed547f'),(9,'craft','m211201_131000_filesystems','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','c3107b03-96b5-4862-88ae-e03e834ab5ea'),(10,'craft','m220103_043103_tab_conditions','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','7e0f1900-ea91-4021-ba6e-102ae6a85725'),(11,'craft','m220104_003433_asset_alt_text','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','896868ee-66b4-4d11-9598-58788e963195'),(12,'craft','m220123_213619_update_permissions','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','1d972080-aa0c-4f20-a91c-461dfe2653b3'),(13,'craft','m220126_003432_addresses','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','9ea9b61c-c605-44c4-812b-26c7cd1dcb5e'),(14,'craft','m220209_095604_add_indexes','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','5cf89bea-0cbd-48ca-ad06-2d816ded511c'),(15,'craft','m220213_015220_matrixblocks_owners_table','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','fb71f764-09ac-4ef5-8754-22f152674485'),(16,'craft','m220214_000000_truncate_sessions','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','4d67afaa-a471-462e-a85c-00418109a437'),(17,'craft','m220222_122159_full_names','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','a6ec79d6-ae58-4049-9fb5-27f715add9f3'),(18,'craft','m220223_180559_nullable_address_owner','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','1f65eeb6-35b1-4263-a3cb-6d400b269952'),(19,'craft','m220225_165000_transform_filesystems','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','cc6caa90-a5da-4cc2-9f18-95c26aee7822'),(20,'craft','m220309_152006_rename_field_layout_elements','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','0c301e77-0e54-49a2-9752-0e4269d0cc79'),(21,'craft','m220314_211928_field_layout_element_uids','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','20101c00-c59c-4dd8-80bb-b97500e24256'),(22,'craft','m220316_123800_transform_fs_subpath','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','07fec3eb-d273-4fbb-8f83-86044455c361'),(23,'craft','m220317_174250_release_all_jobs','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','491b7e8c-c97e-4f0c-85d4-80660944354d'),(24,'craft','m220330_150000_add_site_gql_schema_components','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','2cf27292-8304-4194-a1f7-21387fc7c352'),(25,'craft','m220413_024536_site_enabled_string','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','55ac819e-e3ff-4902-848f-63cde9e6e179'),(26,'craft','m221027_160703_add_image_transform_fill','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','2e6a7e2e-26c5-434b-b14c-0ff34193cfd1'),(27,'craft','m221028_130548_add_canonical_id_index','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','a5cbc2e2-8cfa-4863-a1b5-795552662444'),(28,'craft','m221118_003031_drop_element_fks','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','6dc52ffa-920c-4491-9190-afb71ea00415'),(29,'craft','m230131_120713_asset_indexing_session_new_options','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','c479a2d0-607c-4f3b-a8e6-7dafc9def633'),(30,'craft','m230226_013114_drop_plugin_license_columns','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','2d557732-68b2-424e-94ce-32fe2e17c508');
+INSERT INTO `migrations` VALUES (1,'craft','Install','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','a8344387-b9d1-42be-a709-5510fc2754d7'),(2,'craft','m210121_145800_asset_indexing_changes','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','0ac8c4c0-3422-426e-917f-491872ae55e5'),(3,'craft','m210624_222934_drop_deprecated_tables','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','14f900de-a0a2-48b8-855a-30ab4ac9977a'),(4,'craft','m210724_180756_rename_source_cols','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','4b02d666-1477-42b8-99be-1070d5221126'),(5,'craft','m210809_124211_remove_superfluous_uids','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','eb816743-06ed-4ff2-864f-24e3b1fd83be'),(6,'craft','m210817_014201_universal_users','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','047ab65b-6581-4684-b5e3-11b939c8ca3a'),(7,'craft','m210904_132612_store_element_source_settings_in_project_config','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','01507865-1718-49c7-be6c-edb9bad1c2e2'),(8,'craft','m211115_135500_image_transformers','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','4acaf206-7e91-400a-8651-9748c0ed547f'),(9,'craft','m211201_131000_filesystems','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','c3107b03-96b5-4862-88ae-e03e834ab5ea'),(10,'craft','m220103_043103_tab_conditions','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','7e0f1900-ea91-4021-ba6e-102ae6a85725'),(11,'craft','m220104_003433_asset_alt_text','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','896868ee-66b4-4d11-9598-58788e963195'),(12,'craft','m220123_213619_update_permissions','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','1d972080-aa0c-4f20-a91c-461dfe2653b3'),(13,'craft','m220126_003432_addresses','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','9ea9b61c-c605-44c4-812b-26c7cd1dcb5e'),(14,'craft','m220209_095604_add_indexes','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','5cf89bea-0cbd-48ca-ad06-2d816ded511c'),(15,'craft','m220213_015220_matrixblocks_owners_table','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','fb71f764-09ac-4ef5-8754-22f152674485'),(16,'craft','m220214_000000_truncate_sessions','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','4d67afaa-a471-462e-a85c-00418109a437'),(17,'craft','m220222_122159_full_names','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','a6ec79d6-ae58-4049-9fb5-27f715add9f3'),(18,'craft','m220223_180559_nullable_address_owner','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','1f65eeb6-35b1-4263-a3cb-6d400b269952'),(19,'craft','m220225_165000_transform_filesystems','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','cc6caa90-a5da-4cc2-9f18-95c26aee7822'),(20,'craft','m220309_152006_rename_field_layout_elements','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','0c301e77-0e54-49a2-9752-0e4269d0cc79'),(21,'craft','m220314_211928_field_layout_element_uids','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','20101c00-c59c-4dd8-80bb-b97500e24256'),(22,'craft','m220316_123800_transform_fs_subpath','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','07fec3eb-d273-4fbb-8f83-86044455c361'),(23,'craft','m220317_174250_release_all_jobs','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','491b7e8c-c97e-4f0c-85d4-80660944354d'),(24,'craft','m220330_150000_add_site_gql_schema_components','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','2cf27292-8304-4194-a1f7-21387fc7c352'),(25,'craft','m220413_024536_site_enabled_string','2023-02-21 22:21:32','2023-02-21 22:21:32','2023-02-21 22:21:32','55ac819e-e3ff-4902-848f-63cde9e6e179'),(26,'craft','m221027_160703_add_image_transform_fill','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','2e6a7e2e-26c5-434b-b14c-0ff34193cfd1'),(27,'craft','m221028_130548_add_canonical_id_index','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','a5cbc2e2-8cfa-4863-a1b5-795552662444'),(28,'craft','m221118_003031_drop_element_fks','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','6dc52ffa-920c-4491-9190-afb71ea00415'),(29,'craft','m230131_120713_asset_indexing_session_new_options','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','c479a2d0-607c-4f3b-a8e6-7dafc9def633'),(30,'craft','m230226_013114_drop_plugin_license_columns','2023-03-10 19:13:32','2023-03-10 19:13:32','2023-03-10 19:13:32','2d557732-68b2-424e-94ce-32fe2e17c508'),(31,'craft','m230531_123004_add_entry_type_show_status_field','2023-09-14 21:11:07','2023-09-14 21:11:07','2023-09-14 21:11:07','bdeffb20-cfbc-41a5-8a35-bcedfbb56acb'),(32,'craft','m230607_102049_add_entrytype_slug_translation_columns','2023-09-14 21:11:07','2023-09-14 21:11:07','2023-09-14 21:11:07','bb78322b-0081-404f-9ec3-72784f2986e8'),(33,'craft','m230710_162700_element_activity','2023-09-14 21:11:07','2023-09-14 21:11:07','2023-09-14 21:11:07','9552739d-6dc5-4956-8308-4ed4f840a8e7'),(34,'craft','m230820_162023_fix_cache_id_type','2023-09-14 21:11:07','2023-09-14 21:11:07','2023-09-14 21:11:07','511ec5eb-afdb-4cdf-8301-e72e758e4475'),(35,'craft','m230826_094050_fix_session_id_type','2023-09-14 21:11:07','2023-09-14 21:11:07','2023-09-14 21:11:07','55887e06-253a-4d72-b6c1-7c149806ae61');
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -2030,7 +2070,7 @@ commit;
 LOCK TABLES `projectconfig` WRITE;
 /*!40000 ALTER TABLE `projectconfig` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `projectconfig` VALUES ('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.defaultPlacement','\"end\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elementCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.autocapitalize','true'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.autocomplete','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.autocorrect','true'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.class','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.disabled','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.elementCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.id','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.instructions','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.label','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.max','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.min','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.name','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.orientation','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.placeholder','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.readonly','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.requirable','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.size','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.step','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.tip','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.title','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\TitleField\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.uid','\"7517edb7-b46f-496b-81b6-ad9fb6d26738\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.userCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.warning','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.width','100'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.name','\"Content\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.uid','\"4370ffcd-91c6-4f51-baf9-17d74e05f513\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.userCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.handle','\"topics\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.name','\"Topics\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.template','\"blog/_topic\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.uriFormat','\"blog/topics/{slug}\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.structure.maxLevels','1'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.structure.uid','\"7219e5f2-ab7a-4fa6-b30b-efb984970862\"'),('dateModified','1685031454'),('email.fromEmail','\"hello@craftcms.com\"'),('email.fromName','\"Tutorial\"'),('email.transportType','\"craft\\\\mail\\\\transportadapters\\\\Sendmail\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.autocapitalize','true'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.autocomplete','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.autocorrect','true'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.class','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.disabled','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.id','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.instructions','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.label','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.max','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.min','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.name','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.orientation','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.placeholder','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.readonly','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.requirable','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.size','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.step','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.tip','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.title','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\entries\\\\EntryTitleField\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.uid','\"24ed461b-8ca8-4318-a547-c580ae6b9b24\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.warning','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.width','100'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.fieldUid','\"22c82593-5c3e-471a-a75c-af46ba3b9dfc\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.instructions','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.label','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.required','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.tip','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.uid','\"37e26aa5-a64a-4c2d-8fbf-4d4265f7e557\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.warning','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.width','100'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.fieldUid','\"11606301-cb30-4c50-b455-5ead656bbcee\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.instructions','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.label','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.required','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.tip','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.uid','\"dd4a35ca-3b59-42b1-a33e-31d3da663989\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.warning','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.width','100'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.name','\"Content\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.uid','\"24404a1e-a8e5-4a64-95aa-638b0cfd12cd\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.handle','\"about\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.hasTitleField','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.name','\"About\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.section','\"9ef9856c-d50d-49d9-bd1e-e029956e2342\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.sortOrder','1'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.titleFormat','\"{section.name|raw}\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.titleTranslationKeyFormat','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.titleTranslationMethod','\"site\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.autocapitalize','true'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.autocomplete','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.autocorrect','true'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.class','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.disabled','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.id','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.max','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.min','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.name','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.orientation','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.placeholder','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.readonly','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.requirable','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.size','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.step','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.title','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\entries\\\\EntryTitleField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.uid','\"577aac9f-b0fd-4e6d-a6b2-82e26cc5f05a\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.fieldUid','\"d8695b13-9305-4f11-b758-937e573eb1e2\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.uid','\"fa97269d-162a-48c4-afc9-cd140bbd697f\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.fieldUid','\"6359420f-e650-4b13-a5a5-01ac0d5c1a72\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.uid','\"18fd64a6-5a30-419f-ba41-9e7b184ac2b1\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.fieldUid','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.uid','\"83da71e4-eb92-4b65-a747-52c479527f4f\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.fieldUid','\"342e9393-8067-4c94-9386-e1c541273ddb\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.uid','\"c3a858a5-c56b-4c9f-ae38-989c7bb00c5c\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.fieldUid','\"0ceb2d7a-7218-4ca6-838a-e98a58cc379b\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.uid','\"602f8f6e-5696-433b-90c2-4e597be90483\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.name','\"Content\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.uid','\"d79c3649-544d-4d4a-b795-45a8182cb5fd\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.handle','\"post\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.hasTitleField','true'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.name','\"Post\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.section','\"9420faf5-3e37-4758-8c52-354bedac7414\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.sortOrder','1'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.titleFormat','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.titleTranslationKeyFormat','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.titleTranslationMethod','\"site\"'),('fieldGroups.2e7d47d3-0ff1-4e7d-bd97-776d26709501.name','\"Global\"'),('fieldGroups.50bd58d3-3f59-4d28-b958-5f7fbfa30fd5.name','\"Common\"'),('fieldGroups.bd585f47-3b6d-4f10-b8ea-30c76f0863f3.name','\"Blog\"'),('fieldGroups.d9caefb2-0f98-44ed-9348-d6e5ecd7640f.name','\"About\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.columnSuffix','\"ikcydbdr\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.contentColumnType','\"text\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.fieldGroup','\"d9caefb2-0f98-44ed-9348-d6e5ecd7640f\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.handle','\"bio\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.instructions','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.name','\"Bio\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.searchable','false'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.byteLimit','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.charLimit','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.code','false'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.columnType','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.initialRows','8'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.multiline','true'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.placeholder','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.uiMode','\"normal\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.translationKeyFormat','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.translationMethod','\"none\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.type','\"craft\\\\fields\\\\PlainText\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.columnSuffix','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.contentColumnType','\"string\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.fieldGroup','\"d9caefb2-0f98-44ed-9348-d6e5ecd7640f\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.handle','\"profilePhoto\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.instructions','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.name','\"Profile Photo\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.searchable','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowedKinds','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowSelfRelations','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowSubfolders','true'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowUploads','true'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.branchLimit','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.defaultUploadLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.defaultUploadLocationSubpath','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.localizeRelations','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.maintainHierarchy','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.maxRelations','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.minRelations','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.previewMode','\"full\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictedDefaultUploadSubpath','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictedLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictedLocationSubpath','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictFiles','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictLocation','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.0.0','\"elementType\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.0.1','\"craft\\\\elements\\\\Asset\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.1.0','\"fieldContext\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.1.1','\"global\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.2.0','\"class\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.2.1','\"craft\\\\elements\\\\conditions\\\\assets\\\\AssetCondition\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionLabel','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.showSiteMenu','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.showUnpermittedFiles','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.showUnpermittedVolumes','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.sources.0','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.targetSiteId','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.validateRelatedElements','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.viewMode','\"large\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.translationKeyFormat','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.translationMethod','\"site\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.type','\"craft\\\\fields\\\\Assets\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.columnSuffix','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.contentColumnType','\"string\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.handle','\"topics\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.instructions','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.name','\"Topics\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.searchable','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.allowLimit','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.allowMultipleSources','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.allowSelfRelations','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.branchLimit','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.localizeRelations','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.maxRelations','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.minRelations','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.selectionLabel','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.showSiteMenu','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.source','\"group:5243d9e9-fe81-41ef-a875-69941c782a8e\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.sources','\"*\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.targetSiteId','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.validateRelatedElements','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.viewMode','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.translationKeyFormat','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.translationMethod','\"site\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.type','\"craft\\\\fields\\\\Categories\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.columnSuffix','\"kxpmnqno\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.contentColumnType','\"text\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.handle','\"summary\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.instructions','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.name','\"Summary\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.searchable','false'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.byteLimit','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.charLimit','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.code','false'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.columnType','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.initialRows','1'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.multiline','true'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.placeholder','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.uiMode','\"normal\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.translationKeyFormat','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.translationMethod','\"none\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.type','\"craft\\\\fields\\\\PlainText\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.columnSuffix','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.contentColumnType','\"string\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.handle','\"postContent\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.instructions','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.name','\"Post Content\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.searchable','false'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.contentTable','\"{{%matrixcontent_postcontent}}\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.maxBlocks','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.minBlocks','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.propagationKeyFormat','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.propagationMethod','\"all\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.translationKeyFormat','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.translationMethod','\"site\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.type','\"craft\\\\fields\\\\Matrix\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.columnSuffix','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.contentColumnType','\"string\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.handle','\"featureImage\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.instructions','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.name','\"Feature Image\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.searchable','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowedKinds.0','\"image\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowSelfRelations','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowSubfolders','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowUploads','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.defaultUploadLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.defaultUploadLocationSubpath','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.localizeRelations','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.maxRelations','1'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.minRelations','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.previewMode','\"full\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictedDefaultUploadSubpath','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictedLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictedLocationSubpath','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictFiles','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictLocation','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.0.0','\"elementType\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.0.1','\"craft\\\\elements\\\\Asset\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.1.0','\"fieldContext\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.1.1','\"global\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.2.0','\"class\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.2.1','\"craft\\\\elements\\\\conditions\\\\assets\\\\AssetCondition\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionLabel','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.showSiteMenu','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.showUnpermittedFiles','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.showUnpermittedVolumes','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.source','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.sources','\"*\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.targetSiteId','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.validateRelatedElements','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.viewMode','\"large\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.translationKeyFormat','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.translationMethod','\"site\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.type','\"craft\\\\fields\\\\Assets\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.columnSuffix','\"cyaftqpy\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.contentColumnType','\"text\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.fieldGroup','\"2e7d47d3-0ff1-4e7d-bd97-776d26709501\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.handle','\"description\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.instructions','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.name','\"Description\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.searchable','false'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.byteLimit','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.charLimit','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.code','false'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.columnType','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.initialRows','4'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.multiline','true'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.placeholder','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.uiMode','\"normal\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.translationKeyFormat','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.translationMethod','\"none\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.type','\"craft\\\\fields\\\\PlainText\"'),('fs.hardDisk.hasUrls','true'),('fs.hardDisk.name','\"Hard Disk\"'),('fs.hardDisk.settings.path','\"@webroot/uploads/images\"'),('fs.hardDisk.type','\"craft\\\\fs\\\\Local\"'),('fs.hardDisk.url','\"@web/uploads/images\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elementCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.elementCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.fieldUid','\"de9aba82-dcb8-47b5-b085-64ed1eb4dd6e\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.instructions','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.label','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.required','false'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.tip','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.uid','\"d2bb067d-0a8d-4460-b51d-d32e41eb86bd\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.userCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.warning','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.width','100'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.name','\"Metadata\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.uid','\"0400ac59-ff4f-4dc4-acac-f9f53ab06fa5\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.userCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.handle','\"siteInfo\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.name','\"Site Info\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.sortOrder','1'),('graphql.schemas.a3430119-c9d8-45be-8833-73170b536844.isPublic','true'),('graphql.schemas.a3430119-c9d8-45be-8833-73170b536844.name','\"Public Schema\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.fill','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.format','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.handle','\"thumbnail\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.height','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.interlace','\"none\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.mode','\"fit\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.name','\"Thumbnail\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.position','\"center-center\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.quality','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.upscale','false'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.width','1200'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.field','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elementCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.elementCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.fieldUid','\"782938c4-8296-4285-825e-8a68c0a0899b\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.instructions','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.label','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.required','true'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.tip','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.uid','\"9e7445e8-3c36-4e88-aea6-b0e41ed192dd\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.userCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.warning','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.width','100'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.name','\"Content\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.uid','\"d3468b10-a164-459b-b2c4-e25312ada2fc\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.userCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.columnSuffix','\"acuemsza\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.contentColumnType','\"text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.fieldGroup','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.handle','\"text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.instructions','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.name','\"Text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.searchable','false'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.byteLimit','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.charLimit','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.code','false'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.columnType','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.initialRows','10'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.multiline','true'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.placeholder','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.uiMode','\"normal\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.translationKeyFormat','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.translationMethod','\"none\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.type','\"craft\\\\fields\\\\PlainText\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.handle','\"text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.name','\"Text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.sortOrder','1'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.field','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elementCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.elementCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.fieldUid','\"711e542a-7869-410a-ab6c-83fc8c36a5b6\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.instructions','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.label','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.required','true'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.tip','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.uid','\"0030abb3-10fe-4e1d-b60c-12ab8ab3a459\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.userCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.warning','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.width','100'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.name','\"Content\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.uid','\"6492b6a0-f2b8-4a93-be48-20fad5e1d497\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.userCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.columnSuffix','\"xghluocz\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.contentColumnType','\"text\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.fieldGroup','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.handle','\"quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.instructions','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.name','\"Quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.searchable','false'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.byteLimit','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.charLimit','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.code','false'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.columnType','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.initialRows','6'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.multiline','true'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.placeholder','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.uiMode','\"enlarged\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.translationKeyFormat','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.translationMethod','\"none\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.type','\"craft\\\\fields\\\\PlainText\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.handle','\"quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.name','\"Quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.sortOrder','3'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.field','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elementCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.elementCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.fieldUid','\"473ce54c-06f8-45af-a737-7aaeabffbfde\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.instructions','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.label','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.required','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.tip','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.uid','\"4e34bf66-1913-40f6-af3a-d1527923058b\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.userCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.warning','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.width','100'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.name','\"Content\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.uid','\"c1acae64-7b7b-4d5d-bd90-a06e7a092563\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.userCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.columnSuffix','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.contentColumnType','\"string\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.fieldGroup','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.handle','\"image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.instructions','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.name','\"Image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.searchable','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowedKinds.0','\"image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowSelfRelations','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowSubfolders','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowUploads','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.branchLimit','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.defaultUploadLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.defaultUploadLocationSubpath','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.localizeRelations','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.maintainHierarchy','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.maxRelations','1'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.minRelations','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.previewMode','\"full\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictedDefaultUploadSubpath','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictedLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictedLocationSubpath','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictFiles','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictLocation','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.0.0','\"elementType\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.0.1','\"craft\\\\elements\\\\Asset\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.1.0','\"fieldContext\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.1.1','\"global\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.2.0','\"class\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.2.1','\"craft\\\\elements\\\\conditions\\\\assets\\\\AssetCondition\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionLabel','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.showSiteMenu','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.showUnpermittedFiles','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.showUnpermittedVolumes','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.sources.0','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.targetSiteId','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.validateRelatedElements','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.viewMode','\"list\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.translationKeyFormat','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.translationMethod','\"site\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.type','\"craft\\\\fields\\\\Assets\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.handle','\"image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.name','\"Image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.sortOrder','2'),('meta.__names__.11606301-cb30-4c50-b455-5ead656bbcee','\"Bio\"'),('meta.__names__.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027','\"About\"'),('meta.__names__.22c82593-5c3e-471a-a75c-af46ba3b9dfc','\"Profile Photo\"'),('meta.__names__.2633adaf-c526-44c9-885e-a6272d8f0a26','\"Text\"'),('meta.__names__.2e7d47d3-0ff1-4e7d-bd97-776d26709501','\"Global\"'),('meta.__names__.342e9393-8067-4c94-9386-e1c541273ddb','\"Topics\"'),('meta.__names__.3d59750a-8ed6-43ef-9a60-460cfcc12832','\"Site Info\"'),('meta.__names__.423216e9-be60-4b68-a48f-32690ba804dc','\"Quote\"'),('meta.__names__.473ce54c-06f8-45af-a737-7aaeabffbfde','\"Image\"'),('meta.__names__.50bd58d3-3f59-4d28-b958-5f7fbfa30fd5','\"Common\"'),('meta.__names__.5243d9e9-fe81-41ef-a875-69941c782a8e','\"Topics\"'),('meta.__names__.5e86add9-56fa-4012-a62c-15a24415e5e0','\"Image\"'),('meta.__names__.6359420f-e650-4b13-a5a5-01ac0d5c1a72','\"Summary\"'),('meta.__names__.6fe7500a-704e-4c0f-94ef-a868e4251578','\"Tutorial\"'),('meta.__names__.711e542a-7869-410a-ab6c-83fc8c36a5b6','\"Quote\"'),('meta.__names__.782938c4-8296-4285-825e-8a68c0a0899b','\"Text\"'),('meta.__names__.9420faf5-3e37-4758-8c52-354bedac7414','\"Blog\"'),('meta.__names__.9a47f63c-c5d8-43bd-be5e-5c4a045dce41','\"Thumbnail\"'),('meta.__names__.9ef9856c-d50d-49d9-bd1e-e029956e2342','\"About\"'),('meta.__names__.a3430119-c9d8-45be-8833-73170b536844','\"Public Schema\"'),('meta.__names__.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285','\"Post Content\"'),('meta.__names__.bd585f47-3b6d-4f10-b8ea-30c76f0863f3','\"Blog\"'),('meta.__names__.c3785700-c808-470f-bb7f-2ae46d6731e8','\"Post\"'),('meta.__names__.d8695b13-9305-4f11-b758-937e573eb1e2','\"Feature Image\"'),('meta.__names__.d9caefb2-0f98-44ed-9348-d6e5ecd7640f','\"About\"'),('meta.__names__.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e','\"Description\"'),('meta.__names__.ec1487e2-3e09-4e17-85de-151fb21bf341','\"Images\"'),('meta.__names__.f702ad74-9616-44d5-a062-62d8e7ef2b2d','\"Tutorial\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.defaultPlacement','\"end\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.enableVersioning','true'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.handle','\"blog\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.name','\"Blog\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.propagationMethod','\"all\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.enabledByDefault','true'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.template','\"blog/_entry\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.uriFormat','\"blog/{slug}\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.type','\"channel\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.defaultPlacement','\"end\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.enableVersioning','true'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.handle','\"about\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.name','\"About\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.0.0','\"label\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.0.1','\"Primary entry page\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.1.0','\"urlFormat\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.1.1','\"{url}\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.2.0','\"refresh\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.2.1','\"1\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.propagationMethod','\"all\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.enabledByDefault','true'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.template','\"_singles/about\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.uriFormat','\"about\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.type','\"single\"'),('siteGroups.f702ad74-9616-44d5-a062-62d8e7ef2b2d.name','\"Tutorial\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.baseUrl','\"@web\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.enabled','true'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.handle','\"default\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.language','\"en-US\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.name','\"Tutorial\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.primary','true'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.siteGroup','\"f702ad74-9616-44d5-a062-62d8e7ef2b2d\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.sortOrder','1'),('system.edition','\"solo\"'),('system.live','true'),('system.name','\"Tutorial\"'),('system.schemaVersion','\"4.4.0.4\"'),('system.timeZone','\"America/Los_Angeles\"'),('users.allowPublicRegistration','false'),('users.defaultGroup','null'),('users.photoSubpath','null'),('users.photoVolumeUid','null'),('users.requireEmailVerification','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elementCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.autocapitalize','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.autocomplete','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.autocorrect','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.class','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.disabled','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.elementCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.id','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.instructions','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.label','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.max','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.min','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.name','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.orientation','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.placeholder','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.readonly','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.requirable','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.size','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.step','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.tip','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.title','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\assets\\\\AssetTitleField\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.uid','\"4f0f398d-5460-4c95-adc2-4bc8ec6a9588\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.userCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.warning','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.width','100'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.attribute','\"alt\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.class','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.cols','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.disabled','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.elementCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.id','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.instructions','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.label','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.name','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.orientation','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.placeholder','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.readonly','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.requirable','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.required','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.rows','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.tip','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.title','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.type','\"craft\\\\fieldlayoutelements\\\\assets\\\\AltField\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.uid','\"6ca79624-0b37-49a6-8b84-a53162135fd2\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.userCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.warning','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.width','100'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.name','\"Content\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.uid','\"07f0e1f1-164b-4631-bb26-47a22deb0628\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.userCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fs','\"hardDisk\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.handle','\"images\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.name','\"Images\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.sortOrder','1'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.titleTranslationKeyFormat','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.titleTranslationMethod','\"site\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.transformFs','\"\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.transformSubpath','\"\"');
+INSERT INTO `projectconfig` VALUES ('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.defaultPlacement','\"end\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elementCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.autocapitalize','true'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.autocomplete','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.autocorrect','true'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.class','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.disabled','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.elementCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.id','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.instructions','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.label','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.max','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.min','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.name','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.orientation','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.placeholder','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.readonly','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.requirable','false'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.size','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.step','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.tip','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.title','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\TitleField\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.uid','\"7517edb7-b46f-496b-81b6-ad9fb6d26738\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.userCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.warning','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.elements.0.width','100'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.name','\"Content\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.uid','\"4370ffcd-91c6-4f51-baf9-17d74e05f513\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.fieldLayouts.e34fc8d5-ae42-4ed2-aa81-b45e2764b28a.tabs.0.userCondition','null'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.handle','\"topics\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.name','\"Topics\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.template','\"blog/_topic\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.uriFormat','\"blog/topics/{slug}\"'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.structure.maxLevels','1'),('categoryGroups.5243d9e9-fe81-41ef-a875-69941c782a8e.structure.uid','\"7219e5f2-ab7a-4fa6-b30b-efb984970862\"'),('dateModified','1694725867'),('email.fromEmail','\"hello@craftcms.com\"'),('email.fromName','\"Tutorial\"'),('email.transportType','\"craft\\\\mail\\\\transportadapters\\\\Sendmail\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.autocapitalize','true'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.autocomplete','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.autocorrect','true'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.class','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.disabled','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.id','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.instructions','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.label','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.max','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.min','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.name','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.orientation','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.placeholder','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.readonly','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.requirable','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.size','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.step','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.tip','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.title','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\entries\\\\EntryTitleField\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.uid','\"24ed461b-8ca8-4318-a547-c580ae6b9b24\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.warning','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.0.width','100'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.fieldUid','\"22c82593-5c3e-471a-a75c-af46ba3b9dfc\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.instructions','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.label','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.required','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.tip','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.uid','\"37e26aa5-a64a-4c2d-8fbf-4d4265f7e557\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.warning','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.1.width','100'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.elementCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.fieldUid','\"11606301-cb30-4c50-b455-5ead656bbcee\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.instructions','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.label','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.required','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.tip','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.uid','\"dd4a35ca-3b59-42b1-a33e-31d3da663989\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.warning','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.elements.2.width','100'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.name','\"Content\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.uid','\"24404a1e-a8e5-4a64-95aa-638b0cfd12cd\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.fieldLayouts.ddebd0c2-f431-409c-b6f0-0c95dc61bc4c.tabs.0.userCondition','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.handle','\"about\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.hasTitleField','false'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.name','\"About\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.section','\"9ef9856c-d50d-49d9-bd1e-e029956e2342\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.sortOrder','1'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.titleFormat','\"{section.name|raw}\"'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.titleTranslationKeyFormat','null'),('entryTypes.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027.titleTranslationMethod','\"site\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.autocapitalize','true'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.autocomplete','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.autocorrect','true'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.class','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.disabled','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.id','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.max','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.min','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.name','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.orientation','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.placeholder','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.readonly','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.requirable','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.size','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.step','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.title','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\entries\\\\EntryTitleField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.uid','\"577aac9f-b0fd-4e6d-a6b2-82e26cc5f05a\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.0.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.fieldUid','\"d8695b13-9305-4f11-b758-937e573eb1e2\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.uid','\"fa97269d-162a-48c4-afc9-cd140bbd697f\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.1.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.fieldUid','\"6359420f-e650-4b13-a5a5-01ac0d5c1a72\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.uid','\"18fd64a6-5a30-419f-ba41-9e7b184ac2b1\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.2.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.fieldUid','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.uid','\"83da71e4-eb92-4b65-a747-52c479527f4f\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.3.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.fieldUid','\"342e9393-8067-4c94-9386-e1c541273ddb\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.uid','\"c3a858a5-c56b-4c9f-ae38-989c7bb00c5c\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.4.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.elementCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.fieldUid','\"0ceb2d7a-7218-4ca6-838a-e98a58cc379b\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.instructions','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.label','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.required','false'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.tip','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.uid','\"602f8f6e-5696-433b-90c2-4e597be90483\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.warning','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.elements.5.width','100'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.name','\"Content\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.uid','\"d79c3649-544d-4d4a-b795-45a8182cb5fd\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.fieldLayouts.0c53c2d2-6cec-48f6-a492-d8e8d403eb82.tabs.0.userCondition','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.handle','\"post\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.hasTitleField','true'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.name','\"Post\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.section','\"9420faf5-3e37-4758-8c52-354bedac7414\"'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.sortOrder','1'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.titleFormat','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.titleTranslationKeyFormat','null'),('entryTypes.c3785700-c808-470f-bb7f-2ae46d6731e8.titleTranslationMethod','\"site\"'),('fieldGroups.2e7d47d3-0ff1-4e7d-bd97-776d26709501.name','\"Global\"'),('fieldGroups.50bd58d3-3f59-4d28-b958-5f7fbfa30fd5.name','\"Common\"'),('fieldGroups.bd585f47-3b6d-4f10-b8ea-30c76f0863f3.name','\"Blog\"'),('fieldGroups.d9caefb2-0f98-44ed-9348-d6e5ecd7640f.name','\"About\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.columnSuffix','\"ikcydbdr\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.contentColumnType','\"text\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.fieldGroup','\"d9caefb2-0f98-44ed-9348-d6e5ecd7640f\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.handle','\"bio\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.instructions','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.name','\"Bio\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.searchable','false'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.byteLimit','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.charLimit','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.code','false'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.columnType','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.initialRows','8'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.multiline','true'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.placeholder','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.settings.uiMode','\"normal\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.translationKeyFormat','null'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.translationMethod','\"none\"'),('fields.11606301-cb30-4c50-b455-5ead656bbcee.type','\"craft\\\\fields\\\\PlainText\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.columnSuffix','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.contentColumnType','\"string\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.fieldGroup','\"d9caefb2-0f98-44ed-9348-d6e5ecd7640f\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.handle','\"profilePhoto\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.instructions','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.name','\"Profile Photo\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.searchable','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowedKinds','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowSelfRelations','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowSubfolders','true'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.allowUploads','true'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.branchLimit','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.defaultUploadLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.defaultUploadLocationSubpath','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.localizeRelations','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.maintainHierarchy','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.maxRelations','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.minRelations','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.previewMode','\"full\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictedDefaultUploadSubpath','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictedLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictedLocationSubpath','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictFiles','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.restrictLocation','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.0.0','\"elementType\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.0.1','\"craft\\\\elements\\\\Asset\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.1.0','\"fieldContext\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.1.1','\"global\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.2.0','\"class\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionCondition.__assoc__.2.1','\"craft\\\\elements\\\\conditions\\\\assets\\\\AssetCondition\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.selectionLabel','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.showSiteMenu','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.showUnpermittedFiles','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.showUnpermittedVolumes','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.sources.0','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.targetSiteId','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.validateRelatedElements','false'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.settings.viewMode','\"large\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.translationKeyFormat','null'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.translationMethod','\"site\"'),('fields.22c82593-5c3e-471a-a75c-af46ba3b9dfc.type','\"craft\\\\fields\\\\Assets\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.columnSuffix','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.contentColumnType','\"string\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.handle','\"topics\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.instructions','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.name','\"Topics\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.searchable','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.allowLimit','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.allowMultipleSources','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.allowSelfRelations','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.branchLimit','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.localizeRelations','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.maxRelations','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.minRelations','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.selectionLabel','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.showSiteMenu','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.source','\"group:5243d9e9-fe81-41ef-a875-69941c782a8e\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.sources','\"*\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.targetSiteId','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.validateRelatedElements','false'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.settings.viewMode','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.translationKeyFormat','null'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.translationMethod','\"site\"'),('fields.342e9393-8067-4c94-9386-e1c541273ddb.type','\"craft\\\\fields\\\\Categories\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.columnSuffix','\"kxpmnqno\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.contentColumnType','\"text\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.handle','\"summary\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.instructions','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.name','\"Summary\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.searchable','false'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.byteLimit','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.charLimit','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.code','false'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.columnType','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.initialRows','1'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.multiline','true'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.placeholder','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.settings.uiMode','\"normal\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.translationKeyFormat','null'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.translationMethod','\"none\"'),('fields.6359420f-e650-4b13-a5a5-01ac0d5c1a72.type','\"craft\\\\fields\\\\PlainText\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.columnSuffix','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.contentColumnType','\"string\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.handle','\"postContent\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.instructions','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.name','\"Post Content\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.searchable','false'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.contentTable','\"{{%matrixcontent_postcontent}}\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.maxBlocks','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.minBlocks','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.propagationKeyFormat','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.settings.propagationMethod','\"all\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.translationKeyFormat','null'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.translationMethod','\"site\"'),('fields.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285.type','\"craft\\\\fields\\\\Matrix\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.columnSuffix','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.contentColumnType','\"string\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.fieldGroup','\"bd585f47-3b6d-4f10-b8ea-30c76f0863f3\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.handle','\"featureImage\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.instructions','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.name','\"Feature Image\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.searchable','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowedKinds.0','\"image\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowSelfRelations','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowSubfolders','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.allowUploads','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.defaultUploadLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.defaultUploadLocationSubpath','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.localizeRelations','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.maxRelations','1'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.minRelations','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.previewMode','\"full\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictedDefaultUploadSubpath','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictedLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictedLocationSubpath','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictFiles','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.restrictLocation','true'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.0.0','\"elementType\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.0.1','\"craft\\\\elements\\\\Asset\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.1.0','\"fieldContext\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.1.1','\"global\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.2.0','\"class\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionCondition.__assoc__.2.1','\"craft\\\\elements\\\\conditions\\\\assets\\\\AssetCondition\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.selectionLabel','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.showSiteMenu','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.showUnpermittedFiles','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.showUnpermittedVolumes','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.source','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.sources','\"*\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.targetSiteId','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.validateRelatedElements','false'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.settings.viewMode','\"large\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.translationKeyFormat','null'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.translationMethod','\"site\"'),('fields.d8695b13-9305-4f11-b758-937e573eb1e2.type','\"craft\\\\fields\\\\Assets\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.columnSuffix','\"cyaftqpy\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.contentColumnType','\"text\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.fieldGroup','\"2e7d47d3-0ff1-4e7d-bd97-776d26709501\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.handle','\"description\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.instructions','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.name','\"Description\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.searchable','false'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.byteLimit','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.charLimit','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.code','false'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.columnType','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.initialRows','4'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.multiline','true'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.placeholder','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.settings.uiMode','\"normal\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.translationKeyFormat','null'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.translationMethod','\"none\"'),('fields.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e.type','\"craft\\\\fields\\\\PlainText\"'),('fs.hardDisk.hasUrls','true'),('fs.hardDisk.name','\"Hard Disk\"'),('fs.hardDisk.settings.path','\"@webroot/uploads/images\"'),('fs.hardDisk.type','\"craft\\\\fs\\\\Local\"'),('fs.hardDisk.url','\"@web/uploads/images\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elementCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.elementCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.fieldUid','\"de9aba82-dcb8-47b5-b085-64ed1eb4dd6e\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.instructions','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.label','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.required','false'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.tip','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.uid','\"d2bb067d-0a8d-4460-b51d-d32e41eb86bd\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.userCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.warning','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.elements.0.width','100'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.name','\"Metadata\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.uid','\"0400ac59-ff4f-4dc4-acac-f9f53ab06fa5\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.fieldLayouts.1f531920-6cc5-45b4-9c04-aa537594c1b5.tabs.0.userCondition','null'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.handle','\"siteInfo\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.name','\"Site Info\"'),('globalSets.3d59750a-8ed6-43ef-9a60-460cfcc12832.sortOrder','1'),('graphql.schemas.a3430119-c9d8-45be-8833-73170b536844.isPublic','true'),('graphql.schemas.a3430119-c9d8-45be-8833-73170b536844.name','\"Public Schema\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.fill','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.format','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.handle','\"thumbnail\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.height','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.interlace','\"none\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.mode','\"fit\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.name','\"Thumbnail\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.position','\"center-center\"'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.quality','null'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.upscale','false'),('imageTransforms.9a47f63c-c5d8-43bd-be5e-5c4a045dce41.width','1200'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.field','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elementCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.elementCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.fieldUid','\"782938c4-8296-4285-825e-8a68c0a0899b\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.instructions','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.label','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.required','true'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.tip','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.uid','\"9e7445e8-3c36-4e88-aea6-b0e41ed192dd\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.userCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.warning','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.elements.0.width','100'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.name','\"Content\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.uid','\"d3468b10-a164-459b-b2c4-e25312ada2fc\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fieldLayouts.3f024f9c-c06a-49c6-9224-4180d6b5aaf0.tabs.0.userCondition','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.columnSuffix','\"acuemsza\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.contentColumnType','\"text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.fieldGroup','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.handle','\"text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.instructions','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.name','\"Text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.searchable','false'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.byteLimit','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.charLimit','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.code','false'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.columnType','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.initialRows','10'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.multiline','true'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.placeholder','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.settings.uiMode','\"normal\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.translationKeyFormat','null'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.translationMethod','\"none\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.fields.782938c4-8296-4285-825e-8a68c0a0899b.type','\"craft\\\\fields\\\\PlainText\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.handle','\"text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.name','\"Text\"'),('matrixBlockTypes.2633adaf-c526-44c9-885e-a6272d8f0a26.sortOrder','1'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.field','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elementCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.elementCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.fieldUid','\"711e542a-7869-410a-ab6c-83fc8c36a5b6\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.instructions','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.label','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.required','true'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.tip','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.uid','\"0030abb3-10fe-4e1d-b60c-12ab8ab3a459\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.userCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.warning','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.elements.0.width','100'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.name','\"Content\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.uid','\"6492b6a0-f2b8-4a93-be48-20fad5e1d497\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fieldLayouts.18fdfbda-ae57-4895-b63c-2350f1292b48.tabs.0.userCondition','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.columnSuffix','\"xghluocz\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.contentColumnType','\"text\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.fieldGroup','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.handle','\"quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.instructions','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.name','\"Quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.searchable','false'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.byteLimit','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.charLimit','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.code','false'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.columnType','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.initialRows','6'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.multiline','true'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.placeholder','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.settings.uiMode','\"enlarged\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.translationKeyFormat','null'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.translationMethod','\"none\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.fields.711e542a-7869-410a-ab6c-83fc8c36a5b6.type','\"craft\\\\fields\\\\PlainText\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.handle','\"quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.name','\"Quote\"'),('matrixBlockTypes.423216e9-be60-4b68-a48f-32690ba804dc.sortOrder','3'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.field','\"ad503b1a-8fdf-4a3b-a93c-6bdb2c823285\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elementCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.elementCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.fieldUid','\"473ce54c-06f8-45af-a737-7aaeabffbfde\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.instructions','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.label','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.required','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.tip','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\CustomField\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.uid','\"4e34bf66-1913-40f6-af3a-d1527923058b\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.userCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.warning','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.elements.0.width','100'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.name','\"Content\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.uid','\"c1acae64-7b7b-4d5d-bd90-a06e7a092563\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fieldLayouts.51f32229-5de2-4ec0-bcac-c4bc9c1df0f0.tabs.0.userCondition','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.columnSuffix','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.contentColumnType','\"string\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.fieldGroup','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.handle','\"image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.instructions','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.name','\"Image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.searchable','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowedKinds.0','\"image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowSelfRelations','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowSubfolders','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.allowUploads','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.branchLimit','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.defaultUploadLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.defaultUploadLocationSubpath','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.localizeRelations','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.maintainHierarchy','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.maxRelations','1'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.minRelations','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.previewMode','\"full\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictedDefaultUploadSubpath','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictedLocationSource','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictedLocationSubpath','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictFiles','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.restrictLocation','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.0.0','\"elementType\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.0.1','\"craft\\\\elements\\\\Asset\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.1.0','\"fieldContext\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.1.1','\"global\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.2.0','\"class\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionCondition.__assoc__.2.1','\"craft\\\\elements\\\\conditions\\\\assets\\\\AssetCondition\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.selectionLabel','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.showSiteMenu','true'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.showUnpermittedFiles','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.showUnpermittedVolumes','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.sources.0','\"volume:ec1487e2-3e09-4e17-85de-151fb21bf341\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.targetSiteId','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.validateRelatedElements','false'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.settings.viewMode','\"list\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.translationKeyFormat','null'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.translationMethod','\"site\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.fields.473ce54c-06f8-45af-a737-7aaeabffbfde.type','\"craft\\\\fields\\\\Assets\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.handle','\"image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.name','\"Image\"'),('matrixBlockTypes.5e86add9-56fa-4012-a62c-15a24415e5e0.sortOrder','2'),('meta.__names__.11606301-cb30-4c50-b455-5ead656bbcee','\"Bio\"'),('meta.__names__.228d4acb-c42e-4d3d-ad21-8dc3d1ea0027','\"About\"'),('meta.__names__.22c82593-5c3e-471a-a75c-af46ba3b9dfc','\"Profile Photo\"'),('meta.__names__.2633adaf-c526-44c9-885e-a6272d8f0a26','\"Text\"'),('meta.__names__.2e7d47d3-0ff1-4e7d-bd97-776d26709501','\"Global\"'),('meta.__names__.342e9393-8067-4c94-9386-e1c541273ddb','\"Topics\"'),('meta.__names__.3d59750a-8ed6-43ef-9a60-460cfcc12832','\"Site Info\"'),('meta.__names__.423216e9-be60-4b68-a48f-32690ba804dc','\"Quote\"'),('meta.__names__.473ce54c-06f8-45af-a737-7aaeabffbfde','\"Image\"'),('meta.__names__.50bd58d3-3f59-4d28-b958-5f7fbfa30fd5','\"Common\"'),('meta.__names__.5243d9e9-fe81-41ef-a875-69941c782a8e','\"Topics\"'),('meta.__names__.5e86add9-56fa-4012-a62c-15a24415e5e0','\"Image\"'),('meta.__names__.6359420f-e650-4b13-a5a5-01ac0d5c1a72','\"Summary\"'),('meta.__names__.6fe7500a-704e-4c0f-94ef-a868e4251578','\"Tutorial\"'),('meta.__names__.711e542a-7869-410a-ab6c-83fc8c36a5b6','\"Quote\"'),('meta.__names__.782938c4-8296-4285-825e-8a68c0a0899b','\"Text\"'),('meta.__names__.9420faf5-3e37-4758-8c52-354bedac7414','\"Blog\"'),('meta.__names__.9a47f63c-c5d8-43bd-be5e-5c4a045dce41','\"Thumbnail\"'),('meta.__names__.9ef9856c-d50d-49d9-bd1e-e029956e2342','\"About\"'),('meta.__names__.a3430119-c9d8-45be-8833-73170b536844','\"Public Schema\"'),('meta.__names__.ad503b1a-8fdf-4a3b-a93c-6bdb2c823285','\"Post Content\"'),('meta.__names__.bd585f47-3b6d-4f10-b8ea-30c76f0863f3','\"Blog\"'),('meta.__names__.c3785700-c808-470f-bb7f-2ae46d6731e8','\"Post\"'),('meta.__names__.d8695b13-9305-4f11-b758-937e573eb1e2','\"Feature Image\"'),('meta.__names__.d9caefb2-0f98-44ed-9348-d6e5ecd7640f','\"About\"'),('meta.__names__.de9aba82-dcb8-47b5-b085-64ed1eb4dd6e','\"Description\"'),('meta.__names__.ec1487e2-3e09-4e17-85de-151fb21bf341','\"Images\"'),('meta.__names__.f702ad74-9616-44d5-a062-62d8e7ef2b2d','\"Tutorial\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.defaultPlacement','\"end\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.enableVersioning','true'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.handle','\"blog\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.name','\"Blog\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.propagationMethod','\"all\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.enabledByDefault','true'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.template','\"blog/_entry\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.uriFormat','\"blog/{slug}\"'),('sections.9420faf5-3e37-4758-8c52-354bedac7414.type','\"channel\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.defaultPlacement','\"end\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.enableVersioning','true'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.handle','\"about\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.name','\"About\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.0.0','\"label\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.0.1','\"Primary entry page\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.1.0','\"urlFormat\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.1.1','\"{url}\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.2.0','\"refresh\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.previewTargets.0.__assoc__.2.1','\"1\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.propagationMethod','\"all\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.enabledByDefault','true'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.template','\"_singles/about\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.siteSettings.6fe7500a-704e-4c0f-94ef-a868e4251578.uriFormat','\"about\"'),('sections.9ef9856c-d50d-49d9-bd1e-e029956e2342.type','\"single\"'),('siteGroups.f702ad74-9616-44d5-a062-62d8e7ef2b2d.name','\"Tutorial\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.baseUrl','\"@web\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.enabled','true'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.handle','\"default\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.hasUrls','true'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.language','\"en-US\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.name','\"Tutorial\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.primary','true'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.siteGroup','\"f702ad74-9616-44d5-a062-62d8e7ef2b2d\"'),('sites.6fe7500a-704e-4c0f-94ef-a868e4251578.sortOrder','1'),('system.edition','\"solo\"'),('system.live','true'),('system.name','\"Tutorial\"'),('system.schemaVersion','\"4.5.3.0\"'),('system.timeZone','\"America/Los_Angeles\"'),('users.allowPublicRegistration','false'),('users.defaultGroup','null'),('users.photoSubpath','null'),('users.photoVolumeUid','null'),('users.requireEmailVerification','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elementCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.autocapitalize','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.autocomplete','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.autocorrect','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.class','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.disabled','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.elementCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.id','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.instructions','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.label','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.max','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.min','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.name','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.orientation','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.placeholder','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.readonly','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.requirable','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.size','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.step','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.tip','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.title','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.type','\"craft\\\\fieldlayoutelements\\\\assets\\\\AssetTitleField\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.uid','\"4f0f398d-5460-4c95-adc2-4bc8ec6a9588\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.userCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.warning','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.0.width','100'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.attribute','\"alt\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.class','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.cols','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.disabled','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.elementCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.id','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.instructions','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.label','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.name','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.orientation','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.placeholder','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.readonly','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.requirable','true'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.required','false'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.rows','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.tip','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.title','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.type','\"craft\\\\fieldlayoutelements\\\\assets\\\\AltField\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.uid','\"6ca79624-0b37-49a6-8b84-a53162135fd2\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.userCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.warning','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.elements.1.width','100'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.name','\"Content\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.uid','\"07f0e1f1-164b-4631-bb26-47a22deb0628\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fieldLayouts.6da532a1-b67d-49ad-81fa-ae7397933c9b.tabs.0.userCondition','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.fs','\"hardDisk\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.handle','\"images\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.name','\"Images\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.sortOrder','1'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.titleTranslationKeyFormat','null'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.titleTranslationMethod','\"site\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.transformFs','\"\"'),('volumes.ec1487e2-3e09-4e17-85de-151fb21bf341.transformSubpath','\"\"');
 /*!40000 ALTER TABLE `projectconfig` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -2347,4 +2387,4 @@ commit;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-25 16:29:44
+-- Dump completed on 2023-09-14 21:16:54
