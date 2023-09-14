@@ -1,4 +1,4 @@
-dateModified: 1685031454
+dateModified: 1694725867
 email:
   fromEmail: hello@craftcms.com
   fromName: Tutorial
@@ -45,7 +45,7 @@ system:
   edition: solo
   live: true
   name: Tutorial
-  schemaVersion: 4.4.0.4
+  schemaVersion: 4.5.3.0
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false
