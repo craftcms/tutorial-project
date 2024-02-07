@@ -2,7 +2,7 @@
 
 {# Load the attached image: #}
 {% set featureImage = entry.featureImage.one() %}
-{% set topics = entry.topics.all() %}
+{% set topics = entry.postCategories.all() %}
 {% set postContent = entry.postContent.all() %}
 
 {% block content %}
