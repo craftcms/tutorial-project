@@ -1,4 +1,4 @@
-dateModified: 1694725867
+dateModified: 1707341009
 email:
   fromEmail: hello@craftcms.com
   fromName: Tutorial
@@ -22,7 +22,7 @@ meta:
     22c82593-5c3e-471a-a75c-af46ba3b9dfc: 'Profile Photo' # Profile Photo
     50bd58d3-3f59-4d28-b958-5f7fbfa30fd5: Common # Common
     228d4acb-c42e-4d3d-ad21-8dc3d1ea0027: About # About
-    342e9393-8067-4c94-9386-e1c541273ddb: Topics # Topics
+    342e9393-8067-4c94-9386-e1c541273ddb: 'Post Categories' # Post Categories
     473ce54c-06f8-45af-a737-7aaeabffbfde: Image # Image
     711e542a-7869-410a-ab6c-83fc8c36a5b6: Quote # Quote
     2633adaf-c526-44c9-885e-a6272d8f0a26: Text # Text
