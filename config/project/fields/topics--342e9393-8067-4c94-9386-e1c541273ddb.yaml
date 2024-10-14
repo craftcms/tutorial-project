@@ -6,17 +6,15 @@ instructions: null
 name: Topics
 searchable: false
 settings:
-  allowLimit: false
-  allowMultipleSources: false
   allowSelfRelations: false
   branchLimit: null
   localizeRelations: false
+  maintainHierarchy: true
   maxRelations: null
   minRelations: null
   selectionLabel: null
   showSiteMenu: false
   source: 'group:5243d9e9-fe81-41ef-a875-69941c782a8e' # Topics
-  sources: '*'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: null
