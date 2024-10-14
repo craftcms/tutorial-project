@@ -1,13 +1,13 @@
--- MariaDB dump 10.19  Distrib 10.5.19-MariaDB, for debian-linux-gnu (aarch64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (aarch64)
 --
 -- Host: db    Database: db
 -- ------------------------------------------------------
--- Server version	8.0.33-0ubuntu0.20.04.2
+-- Server version	8.0.36-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `addresses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `addresses` (
   `id` int NOT NULL,
   `ownerId` int DEFAULT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `addresses` (
 
 DROP TABLE IF EXISTS `announcements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `announcements` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `announcements` (
 
 DROP TABLE IF EXISTS `assetindexdata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assetindexdata` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sessionId` int NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE `assetindexdata` (
 
 DROP TABLE IF EXISTS `assetindexingsessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assetindexingsessions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `indexedVolumes` text,
@@ -134,7 +134,7 @@ CREATE TABLE `assetindexingsessions` (
 
 DROP TABLE IF EXISTS `assets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assets` (
   `id` int NOT NULL,
   `volumeId` int DEFAULT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE `assets` (
 
 DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
   `id` int NOT NULL,
   `groupId` int NOT NULL,
@@ -193,7 +193,7 @@ CREATE TABLE `categories` (
 
 DROP TABLE IF EXISTS `categorygroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categorygroups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `structureId` int NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE `categorygroups` (
 
 DROP TABLE IF EXISTS `categorygroups_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categorygroups_sites` (
   `id` int NOT NULL AUTO_INCREMENT,
   `groupId` int NOT NULL,
@@ -247,7 +247,7 @@ CREATE TABLE `categorygroups_sites` (
 
 DROP TABLE IF EXISTS `changedattributes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `changedattributes` (
   `elementId` int NOT NULL,
   `siteId` int NOT NULL,
@@ -271,7 +271,7 @@ CREATE TABLE `changedattributes` (
 
 DROP TABLE IF EXISTS `changedfields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `changedfields` (
   `elementId` int NOT NULL,
   `siteId` int NOT NULL,
@@ -297,7 +297,7 @@ CREATE TABLE `changedfields` (
 
 DROP TABLE IF EXISTS `content`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `content` (
   `id` int NOT NULL AUTO_INCREMENT,
   `elementId` int NOT NULL,
@@ -324,7 +324,7 @@ CREATE TABLE `content` (
 
 DROP TABLE IF EXISTS `craftidtokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `craftidtokens` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -345,7 +345,7 @@ CREATE TABLE `craftidtokens` (
 
 DROP TABLE IF EXISTS `deprecationerrors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `deprecationerrors` (
   `id` int NOT NULL AUTO_INCREMENT,
   `key` varchar(255) NOT NULL,
@@ -369,7 +369,7 @@ CREATE TABLE `deprecationerrors` (
 
 DROP TABLE IF EXISTS `drafts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `drafts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `canonicalId` int DEFAULT NULL,
@@ -395,7 +395,7 @@ CREATE TABLE `drafts` (
 
 DROP TABLE IF EXISTS `elementactivity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `elementactivity` (
   `elementId` int NOT NULL,
   `userId` int NOT NULL,
@@ -421,7 +421,7 @@ CREATE TABLE `elementactivity` (
 
 DROP TABLE IF EXISTS `elements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `elements` (
   `id` int NOT NULL AUTO_INCREMENT,
   `canonicalId` int DEFAULT NULL,
@@ -460,7 +460,7 @@ CREATE TABLE `elements` (
 
 DROP TABLE IF EXISTS `elements_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `elements_sites` (
   `id` int NOT NULL AUTO_INCREMENT,
   `elementId` int NOT NULL,
@@ -488,7 +488,7 @@ CREATE TABLE `elements_sites` (
 
 DROP TABLE IF EXISTS `entries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entries` (
   `id` int NOT NULL,
   `sectionId` int NOT NULL,
@@ -521,7 +521,7 @@ CREATE TABLE `entries` (
 
 DROP TABLE IF EXISTS `entrytypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entrytypes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sectionId` int NOT NULL,
@@ -557,7 +557,7 @@ CREATE TABLE `entrytypes` (
 
 DROP TABLE IF EXISTS `fieldgroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fieldgroups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -577,7 +577,7 @@ CREATE TABLE `fieldgroups` (
 
 DROP TABLE IF EXISTS `fieldlayoutfields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fieldlayoutfields` (
   `id` int NOT NULL AUTO_INCREMENT,
   `layoutId` int NOT NULL,
@@ -605,7 +605,7 @@ CREATE TABLE `fieldlayoutfields` (
 
 DROP TABLE IF EXISTS `fieldlayouts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fieldlayouts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
@@ -625,7 +625,7 @@ CREATE TABLE `fieldlayouts` (
 
 DROP TABLE IF EXISTS `fieldlayouttabs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fieldlayouttabs` (
   `id` int NOT NULL AUTO_INCREMENT,
   `layoutId` int NOT NULL,
@@ -649,7 +649,7 @@ CREATE TABLE `fieldlayouttabs` (
 
 DROP TABLE IF EXISTS `fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fields` (
   `id` int NOT NULL AUTO_INCREMENT,
   `groupId` int DEFAULT NULL,
@@ -680,7 +680,7 @@ CREATE TABLE `fields` (
 
 DROP TABLE IF EXISTS `globalsets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `globalsets` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -706,7 +706,7 @@ CREATE TABLE `globalsets` (
 
 DROP TABLE IF EXISTS `gqlschemas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gqlschemas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -725,7 +725,7 @@ CREATE TABLE `gqlschemas` (
 
 DROP TABLE IF EXISTS `gqltokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gqltokens` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -751,7 +751,7 @@ CREATE TABLE `gqltokens` (
 
 DROP TABLE IF EXISTS `imagetransformindex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imagetransformindex` (
   `id` int NOT NULL AUTO_INCREMENT,
   `assetId` int NOT NULL,
@@ -777,7 +777,7 @@ CREATE TABLE `imagetransformindex` (
 
 DROP TABLE IF EXISTS `imagetransforms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imagetransforms` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -807,7 +807,7 @@ CREATE TABLE `imagetransforms` (
 
 DROP TABLE IF EXISTS `info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `info` (
   `id` int NOT NULL AUTO_INCREMENT,
   `version` varchar(50) NOT NULL,
@@ -828,7 +828,7 @@ CREATE TABLE `info` (
 
 DROP TABLE IF EXISTS `matrixblocks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `matrixblocks` (
   `id` int NOT NULL,
   `primaryOwnerId` int NOT NULL,
@@ -854,7 +854,7 @@ CREATE TABLE `matrixblocks` (
 
 DROP TABLE IF EXISTS `matrixblocks_owners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `matrixblocks_owners` (
   `blockId` int NOT NULL,
   `ownerId` int NOT NULL,
@@ -872,7 +872,7 @@ CREATE TABLE `matrixblocks_owners` (
 
 DROP TABLE IF EXISTS `matrixblocktypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `matrixblocktypes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `fieldId` int NOT NULL,
@@ -899,7 +899,7 @@ CREATE TABLE `matrixblocktypes` (
 
 DROP TABLE IF EXISTS `matrixcontent_postcontent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `matrixcontent_postcontent` (
   `id` int NOT NULL AUTO_INCREMENT,
   `elementId` int NOT NULL,
@@ -923,7 +923,7 @@ CREATE TABLE `matrixcontent_postcontent` (
 
 DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `migrations` (
   `id` int NOT NULL AUTO_INCREMENT,
   `track` varchar(255) NOT NULL,
@@ -943,7 +943,7 @@ CREATE TABLE `migrations` (
 
 DROP TABLE IF EXISTS `plugins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `plugins` (
   `id` int NOT NULL AUTO_INCREMENT,
   `handle` varchar(255) NOT NULL,
@@ -964,7 +964,7 @@ CREATE TABLE `plugins` (
 
 DROP TABLE IF EXISTS `projectconfig`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `projectconfig` (
   `path` varchar(255) NOT NULL,
   `value` text NOT NULL,
@@ -978,7 +978,7 @@ CREATE TABLE `projectconfig` (
 
 DROP TABLE IF EXISTS `queue`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `queue` (
   `id` int NOT NULL AUTO_INCREMENT,
   `channel` varchar(255) NOT NULL DEFAULT 'queue',
@@ -1008,7 +1008,7 @@ CREATE TABLE `queue` (
 
 DROP TABLE IF EXISTS `relations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `relations` (
   `id` int NOT NULL AUTO_INCREMENT,
   `fieldId` int NOT NULL,
@@ -1036,7 +1036,7 @@ CREATE TABLE `relations` (
 
 DROP TABLE IF EXISTS `resourcepaths`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resourcepaths` (
   `hash` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
@@ -1050,7 +1050,7 @@ CREATE TABLE `resourcepaths` (
 
 DROP TABLE IF EXISTS `revisions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `revisions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `canonicalId` int NOT NULL,
@@ -1071,7 +1071,7 @@ CREATE TABLE `revisions` (
 
 DROP TABLE IF EXISTS `searchindex`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `searchindex` (
   `elementId` int NOT NULL,
   `attribute` varchar(25) NOT NULL,
@@ -1089,7 +1089,7 @@ CREATE TABLE `searchindex` (
 
 DROP TABLE IF EXISTS `sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sections` (
   `id` int NOT NULL AUTO_INCREMENT,
   `structureId` int DEFAULT NULL,
@@ -1119,7 +1119,7 @@ CREATE TABLE `sections` (
 
 DROP TABLE IF EXISTS `sections_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sections_sites` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sectionId` int NOT NULL,
@@ -1145,7 +1145,7 @@ CREATE TABLE `sections_sites` (
 
 DROP TABLE IF EXISTS `sequences`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sequences` (
   `name` varchar(255) NOT NULL,
   `next` int unsigned NOT NULL DEFAULT '1',
@@ -1159,7 +1159,7 @@ CREATE TABLE `sequences` (
 
 DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sessions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -1173,7 +1173,7 @@ CREATE TABLE `sessions` (
   KEY `idx_mqfuikohbrrjqwvnwntriimdbqavnisbpmbj` (`dateUpdated`),
   KEY `idx_fsdqquymjdkmaizpmpakksxlgqcbeaechcbd` (`userId`),
   CONSTRAINT `fk_segypwkrmmuleufxofbxinikkhnnzdybnmqh` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1182,7 +1182,7 @@ CREATE TABLE `sessions` (
 
 DROP TABLE IF EXISTS `shunnedmessages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shunnedmessages` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -1203,7 +1203,7 @@ CREATE TABLE `shunnedmessages` (
 
 DROP TABLE IF EXISTS `sitegroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sitegroups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1222,7 +1222,7 @@ CREATE TABLE `sitegroups` (
 
 DROP TABLE IF EXISTS `sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sites` (
   `id` int NOT NULL AUTO_INCREMENT,
   `groupId` int NOT NULL,
@@ -1253,7 +1253,7 @@ CREATE TABLE `sites` (
 
 DROP TABLE IF EXISTS `structureelements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `structureelements` (
   `id` int NOT NULL AUTO_INCREMENT,
   `structureId` int NOT NULL,
@@ -1282,7 +1282,7 @@ CREATE TABLE `structureelements` (
 
 DROP TABLE IF EXISTS `structures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `structures` (
   `id` int NOT NULL AUTO_INCREMENT,
   `maxLevels` smallint unsigned DEFAULT NULL,
@@ -1301,7 +1301,7 @@ CREATE TABLE `structures` (
 
 DROP TABLE IF EXISTS `systemmessages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `systemmessages` (
   `id` int NOT NULL AUTO_INCREMENT,
   `language` varchar(255) NOT NULL,
@@ -1323,7 +1323,7 @@ CREATE TABLE `systemmessages` (
 
 DROP TABLE IF EXISTS `taggroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `taggroups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1348,7 +1348,7 @@ CREATE TABLE `taggroups` (
 
 DROP TABLE IF EXISTS `tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tags` (
   `id` int NOT NULL,
   `groupId` int NOT NULL,
@@ -1368,7 +1368,7 @@ CREATE TABLE `tags` (
 
 DROP TABLE IF EXISTS `tokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tokens` (
   `id` int NOT NULL AUTO_INCREMENT,
   `token` char(32) NOT NULL,
@@ -1391,7 +1391,7 @@ CREATE TABLE `tokens` (
 
 DROP TABLE IF EXISTS `usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usergroups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1412,7 +1412,7 @@ CREATE TABLE `usergroups` (
 
 DROP TABLE IF EXISTS `usergroups_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usergroups_users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `groupId` int NOT NULL,
@@ -1434,7 +1434,7 @@ CREATE TABLE `usergroups_users` (
 
 DROP TABLE IF EXISTS `userpermissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userpermissions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -1452,7 +1452,7 @@ CREATE TABLE `userpermissions` (
 
 DROP TABLE IF EXISTS `userpermissions_usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userpermissions_usergroups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `permissionId` int NOT NULL,
@@ -1474,7 +1474,7 @@ CREATE TABLE `userpermissions_usergroups` (
 
 DROP TABLE IF EXISTS `userpermissions_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userpermissions_users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `permissionId` int NOT NULL,
@@ -1496,7 +1496,7 @@ CREATE TABLE `userpermissions_users` (
 
 DROP TABLE IF EXISTS `userpreferences`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userpreferences` (
   `userId` int NOT NULL AUTO_INCREMENT,
   `preferences` text,
@@ -1511,7 +1511,7 @@ CREATE TABLE `userpreferences` (
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `photoId` int DEFAULT NULL,
@@ -1560,7 +1560,7 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `volumefolders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `volumefolders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `parentId` int DEFAULT NULL,
@@ -1585,7 +1585,7 @@ CREATE TABLE `volumefolders` (
 
 DROP TABLE IF EXISTS `volumes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `volumes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `fieldLayoutId` int DEFAULT NULL,
@@ -1616,7 +1616,7 @@ CREATE TABLE `volumes` (
 
 DROP TABLE IF EXISTS `widgets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `widgets` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
@@ -1647,19 +1647,20 @@ CREATE TABLE `widgets` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-14 21:16:54
--- MariaDB dump 10.19  Distrib 10.5.19-MariaDB, for debian-linux-gnu (aarch64)
+-- Dump completed on 2024-10-14 16:08:51
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (aarch64)
 --
 -- Host: db    Database: db
 -- ------------------------------------------------------
--- Server version	8.0.33-0ubuntu0.20.04.2
+-- Server version	8.0.36-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
@@ -1987,7 +1988,7 @@ commit;
 LOCK TABLES `info` WRITE;
 /*!40000 ALTER TABLE `info` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `info` VALUES (1,'4.5.4','4.5.3.0',0,'kfxwhgezelxf','3@gycguyzmqu','2023-02-21 22:21:32','2023-09-14 21:11:07','22a2e5f5-2035-442e-a171-7f6a96746f01');
+INSERT INTO `info` VALUES (1,'4.12.6.1','4.5.3.0',0,'kfxwhgezelxf','3@gycguyzmqu','2023-02-21 22:21:32','2024-10-14 16:08:26','22a2e5f5-2035-442e-a171-7f6a96746f01');
 /*!40000 ALTER TABLE `info` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -2334,7 +2335,7 @@ commit;
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 set autocommit=0;
-INSERT INTO `users` VALUES (1,NULL,1,0,0,0,1,'admin',NULL,NULL,NULL,'hello@craftcms.com','$2y$13$GrmBArH7eYNwpdDwtKcHvuHzDGHZU0efye31agyJCI4UjempmEyRK','2023-05-25 16:16:01',NULL,NULL,NULL,'2023-05-17 20:02:48',NULL,1,NULL,NULL,NULL,0,'2023-02-21 23:51:58','2023-02-21 22:21:32','2023-05-25 16:16:01');
+INSERT INTO `users` VALUES (1,NULL,1,0,0,0,1,'admin',NULL,NULL,NULL,'hello@craftcms.com','$2y$13$GrmBArH7eYNwpdDwtKcHvuHzDGHZU0efye31agyJCI4UjempmEyRK','2024-10-14 16:08:29',NULL,NULL,NULL,'2023-05-17 20:02:48',NULL,1,NULL,NULL,NULL,0,'2023-02-21 23:51:58','2023-02-21 22:21:32','2024-10-14 16:08:29');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
@@ -2382,9 +2383,10 @@ commit;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-14 21:16:54
+-- Dump completed on 2024-10-14 16:08:51
