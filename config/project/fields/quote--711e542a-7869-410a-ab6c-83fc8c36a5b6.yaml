@@ -1,18 +1,16 @@
-columnSuffix: ikcydbdr
-contentColumnType: text
-handle: bio
+columnSuffix: xghluocz
+handle: quote
 instructions: null
-name: Bio
+name: 'Post Content - Quote - Quote'
 searchable: false
 settings:
   byteLimit: null
   charLimit: null
   code: false
-  columnType: null
-  initialRows: 8
+  initialRows: 6
   multiline: true
   placeholder: null
-  uiMode: normal
+  uiMode: enlarged
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\PlainText

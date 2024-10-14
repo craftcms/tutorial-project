@@ -1,36 +1,36 @@
 columnSuffix: null
-contentColumnType: string
-handle: profilePhoto
+handle: image
 instructions: null
-name: 'Profile Photo'
+name: 'Post Content - Image - Image'
 searchable: false
 settings:
   allowSelfRelations: false
   allowSubfolders: true
   allowUploads: true
-  allowedKinds: null
+  allowedKinds:
+    - image
   branchLimit: null
   defaultUploadLocationSource: 'volume:ec1487e2-3e09-4e17-85de-151fb21bf341' # Images
   defaultUploadLocationSubpath: null
-  localizeRelations: false
   maintainHierarchy: false
-  maxRelations: null
+  maxRelations: 1
   minRelations: null
   previewMode: full
-  restrictFiles: false
-  restrictLocation: false
+  restrictFiles: true
+  restrictLocation: true
   restrictedDefaultUploadSubpath: null
   restrictedLocationSource: 'volume:ec1487e2-3e09-4e17-85de-151fb21bf341' # Images
   restrictedLocationSubpath: null
   selectionLabel: null
-  showSiteMenu: false
+  showCardsInGrid: false
+  showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   sources:
     - 'volume:ec1487e2-3e09-4e17-85de-151fb21bf341' # Images
   targetSiteId: null
   validateRelatedElements: false
-  viewMode: large
+  viewMode: list
 translationKeyFormat: null
-translationMethod: site
+translationMethod: none
 type: craft\fields\Assets

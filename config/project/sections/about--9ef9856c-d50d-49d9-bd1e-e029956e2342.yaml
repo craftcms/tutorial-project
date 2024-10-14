@@ -1,6 +1,9 @@
 defaultPlacement: end
 enableVersioning: true
+entryTypes:
+  - 228d4acb-c42e-4d3d-ad21-8dc3d1ea0027 # About
 handle: about
+maxAuthors: 1
 name: About
 previewTargets:
   -
@@ -11,9 +14,6 @@ previewTargets:
       -
         - urlFormat
         - '{url}'
-      -
-        - refresh
-        - '1'
 propagationMethod: all
 siteSettings:
   6fe7500a-704e-4c0f-94ef-a868e4251578: # Tutorial

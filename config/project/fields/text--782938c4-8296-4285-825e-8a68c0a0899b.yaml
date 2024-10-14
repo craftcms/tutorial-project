@@ -1,15 +1,13 @@
-columnSuffix: ikcydbdr
-contentColumnType: text
-handle: bio
+columnSuffix: acuemsza
+handle: text
 instructions: null
-name: Bio
+name: 'Post Content - Text - Text'
 searchable: false
 settings:
   byteLimit: null
   charLimit: null
   code: false
-  columnType: null
-  initialRows: 8
+  initialRows: 10
   multiline: true
   placeholder: null
   uiMode: normal
