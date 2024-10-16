@@ -1,4 +1,4 @@
-dateModified: 1707341009
+dateModified: 1729110097
 email:
   fromEmail: hello@craftcms.com
   fromName: Tutorial
@@ -8,44 +8,35 @@ fs:
     hasUrls: true
     name: 'Hard Disk'
     settings:
-      path: '@webroot/uploads/images'
+      path: '@webroot/uploads'
     type: craft\fs\Local
-    url: '@web/uploads/images'
+    url: '@uploads'
 meta:
   __names__:
-    2e7d47d3-0ff1-4e7d-bd97-776d26709501: Global # Global
     3d59750a-8ed6-43ef-9a60-460cfcc12832: 'Site Info' # Site Info
     5e86add9-56fa-4012-a62c-15a24415e5e0: Image # Image
     6fe7500a-704e-4c0f-94ef-a868e4251578: Tutorial # Tutorial
     9a47f63c-c5d8-43bd-be5e-5c4a045dce41: Thumbnail # Thumbnail
     9ef9856c-d50d-49d9-bd1e-e029956e2342: About # About
-    22c82593-5c3e-471a-a75c-af46ba3b9dfc: 'Profile Photo' # Profile Photo
-    50bd58d3-3f59-4d28-b958-5f7fbfa30fd5: Common # Common
     228d4acb-c42e-4d3d-ad21-8dc3d1ea0027: About # About
     342e9393-8067-4c94-9386-e1c541273ddb: 'Post Categories' # Post Categories
     473ce54c-06f8-45af-a737-7aaeabffbfde: Image # Image
-    711e542a-7869-410a-ab6c-83fc8c36a5b6: Quote # Quote
     2633adaf-c526-44c9-885e-a6272d8f0a26: Text # Text
     5243d9e9-fe81-41ef-a875-69941c782a8e: Topics # Topics
     9420faf5-3e37-4758-8c52-354bedac7414: Blog # Blog
     423216e9-be60-4b68-a48f-32690ba804dc: Quote # Quote
     782938c4-8296-4285-825e-8a68c0a0899b: Text # Text
-    6359420f-e650-4b13-a5a5-01ac0d5c1a72: Summary # Summary
     11606301-cb30-4c50-b455-5ead656bbcee: Bio # Bio
     a3430119-c9d8-45be-8833-73170b536844: 'Public Schema' # Public Schema
     ad503b1a-8fdf-4a3b-a93c-6bdb2c823285: 'Post Content' # Post Content
-    bd585f47-3b6d-4f10-b8ea-30c76f0863f3: Blog # Blog
     c3785700-c808-470f-bb7f-2ae46d6731e8: Post # Post
-    d9caefb2-0f98-44ed-9348-d6e5ecd7640f: About # About
-    d8695b13-9305-4f11-b758-937e573eb1e2: 'Feature Image' # Feature Image
-    de9aba82-dcb8-47b5-b085-64ed1eb4dd6e: Description # Description
     ec1487e2-3e09-4e17-85de-151fb21bf341: Images # Images
     f702ad74-9616-44d5-a062-62d8e7ef2b2d: Tutorial # Tutorial
 system:
   edition: solo
   live: true
   name: Tutorial
-  schemaVersion: 4.5.3.0
+  schemaVersion: 5.3.0.2
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false

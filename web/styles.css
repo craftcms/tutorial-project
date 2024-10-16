@@ -145,11 +145,8 @@ article a {
     margin-bottom: var(--layout-site-gutter);
 }
 
-.content-block.unsupported {
-    border: 1px dashed var(--color-highlight);
-    color: var(--color-highlight);
-    padding: var(--layout-site-gutter);
-    text-align: center;
+.content-block:last-child {
+    margin-bottom: 0;
 }
 
 /* About */

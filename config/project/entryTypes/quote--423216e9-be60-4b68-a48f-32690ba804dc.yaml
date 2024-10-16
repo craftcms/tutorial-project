@@ -1,6 +1,6 @@
-color: blue
+color: pink
 fieldLayouts:
-  ddebd0c2-f431-409c-b6f0-0c95dc61bc4c:
+  18fdfbda-ae57-4895-b63c-2350f1292b48:
     tabs:
       -
         elementCondition: null
@@ -10,7 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
-            dateAdded: '2024-10-14T16:30:02+00:00'
+            dateAdded: '2024-10-14T17:26:42+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -31,53 +31,37 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 24ed461b-8ca8-4318-a547-c580ae6b9b24
+            uid: b2e21c01-ef2f-45a7-8db8-a05b6df4d718
             userCondition: null
             warning: null
             width: 100
           -
             dateAdded: '2024-10-14T16:30:02+00:00'
             elementCondition: null
-            fieldUid: 473ce54c-06f8-45af-a737-7aaeabffbfde # Image
-            handle: profileImage
-            includeInCards: false
-            instructions: null
-            label: 'Profile Image'
-            providesThumbs: true
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 37e26aa5-a64a-4c2d-8fbf-4d4265f7e557
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            dateAdded: '2024-10-14T16:30:02+00:00'
-            elementCondition: null
-            fieldUid: 11606301-cb30-4c50-b455-5ead656bbcee # Bio
+            fieldUid: 782938c4-8296-4285-825e-8a68c0a0899b # Text
             handle: null
-            includeInCards: false
+            includeInCards: true
             instructions: null
             label: null
             providesThumbs: false
-            required: false
+            required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: dd4a35ca-3b59-42b1-a33e-31d3da663989
+            uid: 0030abb3-10fe-4e1d-b60c-12ab8ab3a459
             userCondition: null
             warning: null
             width: 100
         name: Content
-        uid: 24404a1e-a8e5-4a64-95aa-638b0cfd12cd
+        uid: 6492b6a0-f2b8-4a93-be48-20fad5e1d497
         userCondition: null
-handle: about
+handle: quote
 hasTitleField: false
-icon: address-card
-name: About
-showSlugField: true
+icon: quotes
+name: Quote
+showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: '{section.name|raw}'
+titleFormat: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

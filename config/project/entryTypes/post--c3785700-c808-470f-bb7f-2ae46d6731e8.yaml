@@ -1,3 +1,4 @@
+color: null
 fieldLayouts:
   0c53c2d2-6cec-48f6-a492-d8e8d403eb82:
     tabs:
@@ -9,9 +10,12 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-14T16:30:02+00:00'
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
+            inputType: null
             instructions: null
             label: null
             max: null
@@ -19,6 +23,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -31,10 +36,14 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-14T16:30:02+00:00'
             elementCondition: null
-            fieldUid: d8695b13-9305-4f11-b758-937e573eb1e2 # Feature Image
+            fieldUid: 473ce54c-06f8-45af-a737-7aaeabffbfde # Image
+            handle: featureImage
+            includeInCards: false
             instructions: null
-            label: null
+            label: 'Feature Image'
+            providesThumbs: true
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -43,10 +52,14 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-14T16:30:02+00:00'
             elementCondition: null
-            fieldUid: 6359420f-e650-4b13-a5a5-01ac0d5c1a72 # Summary
+            fieldUid: 782938c4-8296-4285-825e-8a68c0a0899b # Text
+            handle: summary
+            includeInCards: true
             instructions: null
-            label: null
+            label: Summary
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -55,10 +68,14 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-14T16:30:02+00:00'
             elementCondition: null
             fieldUid: ad503b1a-8fdf-4a3b-a93c-6bdb2c823285 # Post Content
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -67,26 +84,18 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-14T16:30:02+00:00'
             elementCondition: null
             fieldUid: 342e9393-8067-4c94-9386-e1c541273ddb # Post Categories
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: c3a858a5-c56b-4c9f-ae38-989c7bb00c5c
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 0ceb2d7a-7218-4ca6-838a-e98a58cc379b
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 602f8f6e-5696-433b-90c2-4e597be90483
             userCondition: null
             warning: null
             width: 100
@@ -95,9 +104,12 @@ fieldLayouts:
         userCondition: null
 handle: post
 hasTitleField: true
+icon: pen-circle
 name: Post
-section: 9420faf5-3e37-4758-8c52-354bedac7414 # Blog
-sortOrder: 1
-titleFormat: null
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

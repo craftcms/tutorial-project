@@ -8,7 +8,7 @@ If you would like to start with a fully-functional project (or have an examplar 
 
 1. **Clone the repository:** `git clone https://github.com/craftcms/tutorial-project.git`;
 1. **Move into the directory:** `cd tutorial-project`;
-1. **Boot up development environment:** `ddev start` (assuming you have [DDEV](https://craftcms.com/docs/4.x/installation.html) installed);
+1. **Boot up development environment:** `ddev start` (assuming you have [DDEV](https://craftcms.com/docs/5.x/install.html) installed);
 1. **Install dependencies:** `ddev composer install`;
 1. **Set a security key:** `ddev craft setup/security-key`;
 1. **Import database:**: `ddev craft db/restore seed.sql`;

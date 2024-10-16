@@ -16,6 +16,9 @@
       <nav>
         <ul>
           <li>
+            <a href="{{ url('/') }}" class="{{ navSegment is empty ? 'active' : 'inactive' }}">Home</a>
+          </li>
+          <li>
             <a href="{{ url('blog') }}" class="{{ navSegment == 'blog' ? 'active' : 'inactive' }}">Blog</a>
           </li>
           <li>

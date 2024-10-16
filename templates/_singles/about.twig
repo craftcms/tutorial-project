@@ -1,14 +1,14 @@
 {% extends '_layout' %}
 
-{% set profilePhoto = entry.profilePhoto.one() %}
+{% set profileImage = entry.profileImage.one() %}
 
 {% block content %}
   <h1>{{ entry.title }}</h1>
 
   <div class="about">
-    {% if profilePhoto %}
+    {% if profileImage %}
       <div class="photo">
-        {{ profilePhoto.getImg({
+        {{ profileImage.getImg({
           mode: 'crop',
           width: 360,
           height: 360,

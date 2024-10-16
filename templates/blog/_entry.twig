@@ -44,6 +44,10 @@
         <div class="content-block image">
           {{ image.getImg() }}
         </div>
+      {% elseif blockType == 'quote' %}
+        <div class="content-block quote">
+          <blockquote>{{ contentBlock.text | md }}</blockquote>
+        </div>
       {% else %}
         <div class="content-block unsupported">
           <p>Unsupported block type: <code>{{ blockType }}</code></p>
