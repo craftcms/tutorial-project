@@ -1,7 +1,7 @@
 columnSuffix: acuemsza
 handle: text
 instructions: null
-name: 'Post Content - Text - Text'
+name: Text
 searchable: false
 settings:
   byteLimit: null

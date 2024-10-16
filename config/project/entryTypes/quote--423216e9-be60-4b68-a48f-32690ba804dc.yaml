@@ -1,4 +1,4 @@
-color: null
+color: pink
 fieldLayouts:
   18fdfbda-ae57-4895-b63c-2350f1292b48:
     tabs:
@@ -6,13 +6,43 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2024-10-14T17:26:42+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: b2e21c01-ef2f-45a7-8db8-a05b6df4d718
+            userCondition: null
+            warning: null
+            width: 100
+          -
             dateAdded: '2024-10-14T16:30:02+00:00'
             elementCondition: null
-            fieldUid: 711e542a-7869-410a-ab6c-83fc8c36a5b6
+            fieldUid: 782938c4-8296-4285-825e-8a68c0a0899b # Text
             handle: null
             includeInCards: true
             instructions: null
-            label: Quote
+            label: null
             providesThumbs: false
             required: true
             tip: null
@@ -26,12 +56,12 @@ fieldLayouts:
         userCondition: null
 handle: quote
 hasTitleField: false
-icon: null
+icon: quotes
 name: Quote
 showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: null
+titleFormat: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

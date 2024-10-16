@@ -1,3 +1,5 @@
+altTranslationKeyFormat: null
+altTranslationMethod: none
 fieldLayouts:
   6da532a1-b67d-49ad-81fa-ae7397933c9b:
     tabs:
@@ -9,9 +11,11 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-14T16:30:02+00:00'
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -20,6 +24,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -35,14 +40,17 @@ fieldLayouts:
             attribute: alt
             class: null
             cols: null
+            dateAdded: '2024-10-14T16:30:02+00:00'
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             instructions: null
             label: null
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: true
             required: false
@@ -61,7 +69,8 @@ fs: hardDisk
 handle: images
 name: Images
 sortOrder: 1
+subpath: images
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
 transformFs: ''
-transformSubpath: ''
+transformSubpath: images
